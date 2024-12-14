@@ -1,0 +1,26 @@
+{
+  "name": "healthcareandfitness",
+  "version": "1.0.0",
+  "description": "healthcareandfitness",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "nodemon server.js",
+    "dev:client": "npm run dev --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://vinay10110/Health-and-fitness-tracker"
+  },
+  "author": "vinay",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "concurrently": "^9.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0",
+    "nodemon": "^3.1.9"
+  }
+}
