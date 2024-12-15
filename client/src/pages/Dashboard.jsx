@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import  { useState, useEffect } from 'react';
-import DashBoardComponent from '../../components/DashBoard';
-import { Redirect } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import DashBoardComponent from '../components/Dashboard';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import axios from 'axios';
 import moment from 'moment';
 
 const DashBoard = () => {
+  const navigate = useNavigate();  // Initialize useNavigate hook
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
   const [currentDayId, setCurrentDayId] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -64,9 +65,12 @@ const DashBoard = () => {
     fetchUserData();
   }, [userId, todaysDate]);
 
-  if (!localStorage.getItem('jwtToken')) {
-    return <Redirect to="/login" />;
-  }
+  // Use useNavigate to redirect to login page if no jwtToken is found
+  useEffect(() => {
+    if (!localStorage.getItem('jwtToken')) {
+      navigate('/login');  // Redirect to login page using navigate
+    }
+  }, [navigate]);
 
   return (
     <div>

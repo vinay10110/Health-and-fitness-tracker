@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import WeightGoalCard from '../../components/WeightGoalCard';
-import { Redirect } from 'react-router-dom';
+import WeightGoalCard from '../components/Weight';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import axios from 'axios';
 import moment from 'moment';
 
@@ -12,6 +12,8 @@ const WeightGoal = () => {
   const [currentDayId, setCurrentDayId] = useState('');
   const [quantities, setQuantities] = useState([]);
   const [dates, setDates] = useState([]);
+
+  const navigate = useNavigate();  // Initialize useNavigate hook
 
   useEffect(() => {
     // Fetch weight data when the component mounts
@@ -63,8 +65,10 @@ const WeightGoal = () => {
     }
   };
 
+  // Redirect if no JWT token is found
   if (!localStorage.getItem('jwtToken')) {
-    return <Redirect to="/login" />;
+    navigate("/login");  // Use navigate instead of Redirect
+    return null; // Prevent the rest of the component from rendering
   }
 
   return (

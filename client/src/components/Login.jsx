@@ -2,18 +2,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';  // Updated to @mui/material
+import TextField from '@mui/material/TextField';  // Updated to @mui/material
+import Grid from '@mui/material/Grid';  // Updated to @mui/material
+import Button from '@mui/material/Button';  // Updated to @mui/material
+import Tooltip from '@mui/material/Tooltip';  // Updated to @mui/material
+import Dialog from '@mui/material/Dialog';  // Updated to @mui/material
+import DialogActions from '@mui/material/DialogActions';  // Updated to @mui/material
+import DialogContent from '@mui/material/DialogContent';  // Updated to @mui/material
+import DialogContentText from '@mui/material/DialogContentText';  // Updated to @mui/material
+import DialogTitle from '@mui/material/DialogTitle';  // Updated to @mui/material
 import styled from 'styled-components';
 
 // Styled Components

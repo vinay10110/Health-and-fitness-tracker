@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import Tooltip from '@material-ui/core/Tooltip';
-import Avatar from '@material-ui/core/Avatar';
-import FontAwesome from 'react-fontawesome';
-import ChartsPie from './../ChartsPie';
+import Grid from '@mui/material/Grid';  // Updated to @mui/material
+import Card from '@mui/material/Card';  // Updated to @mui/material
+import CardContent from '@mui/material/CardContent';  // Updated to @mui/material
+import Typography from '@mui/material/Typography';  // Updated to @mui/material
+import Table from '@mui/material/Table';  // Updated to @mui/material
+import TableBody from '@mui/material/TableBody';  // Updated to @mui/material
+import TableCell from '@mui/material/TableCell';  // Updated to @mui/material
+import TableRow from '@mui/material/TableRow';  // Updated to @mui/material
+import Tooltip from '@mui/material/Tooltip';  // Updated to @mui/material
+import Avatar from '@mui/material/Avatar';  // Updated to @mui/material
+import FontAwesome from 'react-fontawesome';  // This is a third-party library, no change needed
+import ChartsPie from './ChartsPie';
 
 // Inline styles
 const styles = {

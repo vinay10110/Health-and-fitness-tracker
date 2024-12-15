@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import NutritionGoalCard from '../../components/NutritionGoalCard';
-import { Redirect } from 'react-router-dom';
+import NutritionGoalCard from '../components/Nutrition';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import axios from 'axios';
 import moment from 'moment';
 
@@ -25,6 +25,8 @@ const NutritionGoal = () => {
     noSugar: false,
     noAlcohol: false
   });
+
+  const navigate = useNavigate();  // Initialize useNavigate hook
 
   useEffect(() => {
     // Reset toggled states on a new day
@@ -66,7 +68,7 @@ const NutritionGoal = () => {
     };
 
     fetchData();
-  }, [token, userId]);
+  }, [token, userId, toggled]);
 
   const handleCheckboxChange = (e) => {
     const { value } = e.target;
@@ -101,9 +103,12 @@ const NutritionGoal = () => {
     setToggled(prevState => ({ ...prevState, [name]: event.target.checked }));
   };
 
-  if (!token) {
-    return <Redirect to="/login" />;
-  }
+  // Redirect to login if no token is found
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");  // Redirect to login page
+    }
+  }, [token, navigate]);
 
   return (
     <div>

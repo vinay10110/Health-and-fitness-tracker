@@ -1,10 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Bar } from 'react-chartjs-2';
-import { defaults } from 'react-chartjs-2';
+import { Chart } from 'chart.js';
 import styled from 'styled-components';
 
 // Disable the chart.js legend display globally
-defaults.global.legend.display = false;
+Chart.defaults.set({
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+});
 
 // Styled component for the chart container
 const ChartContainer = styled.div`
@@ -13,7 +19,7 @@ const ChartContainer = styled.div`
   margin: auto;
 `;
 
-const Chart = ({ dates, quantities }) => {
+const Charts = ({ dates, quantities }) => {
   const chartData = {
     labels: dates,
     datasets: [{
@@ -58,4 +64,4 @@ const Chart = ({ dates, quantities }) => {
   );
 };
 
-export default Chart;
+export default Charts;

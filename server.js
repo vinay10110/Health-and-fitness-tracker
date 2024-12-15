@@ -2,10 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose=require('mongoose');
 app.use(express.json());
-
+require('dotenv').config();
 mongoose.connect(
-    process.env.MONGO_URL ,
-    { useNewUrlParser: true }
+    process.env.MONGO_URL 
   );
 const PORT = 4000; 
 app.listen(PORT, () => {

@@ -1,23 +1,25 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import WaterGoalCard from '../../components/WaterGoalCard';
-import { Redirect } from 'react-router-dom';
+import WaterGoalCard from '../components/Water';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import axios from 'axios';
 import moment from 'moment';
 
 const WaterGoal = () => {
-  const [redirect, setRedirect] = useState(false);
   const [glasses, setGlasses] = useState(0);
   const [currentDayId, setCurrentDayId] = useState('');
   const [updatedWater, setUpdatedWater] = useState(0);
   const [quantities, setQuantities] = useState([]);
   const [dates, setDates] = useState([]);
 
-  // Check redirect condition
-  if (!localStorage.getItem('jwtToken')) {
-    return <Redirect to="/login" />;
-  }
+  const navigate = useNavigate();  // Initialize useNavigate hook
+
+  // Redirect to login if no JWT token
+  useEffect(() => {
+    if (!localStorage.getItem('jwtToken')) {
+      navigate("/login");  // Redirect to login page
+    }
+  }, [navigate]);
 
   // Fetch data on component mount
   useEffect(() => {

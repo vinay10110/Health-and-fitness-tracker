@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import ExerciseGoalCard from '../../components/ExerciseGoalCard';
-import { Redirect } from 'react-router-dom';
+import ExerciseGoalCard from '../components/Exercise';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import moment from 'moment';
 import axios from 'axios';
 
 const ExerciseGoal = () => {
-  const [redirect, setRedirect] = useState(false);
   const [currentDayId, setCurrentDayId] = useState('');
   const [newExercise, setNewExercise] = useState('');
   const [newDuration, setNewDuration] = useState(0);
@@ -15,7 +15,14 @@ const ExerciseGoal = () => {
   const [quantities, setQuantities] = useState([]);
   const [dates, setDates] = useState([]);
 
+  const navigate = useNavigate();  // Initialize useNavigate hook
+
   useEffect(() => {
+    // Check if token exists, if not redirect to login page
+    if (!localStorage.getItem('jwtToken')) {
+      navigate('/login');  // Redirect to login if token is not found
+    }
+
     const fetchDays = async () => {
       try {
         const url = `/api/healthtracker/getDays/${localStorage.getItem('userId')}`;
@@ -23,8 +30,6 @@ const ExerciseGoal = () => {
 
         const res = await axios.get(url);
         const data = res.data;
-
-        console.log(data);
 
         const exerciseQuantities = data.map(day => day.totalActivity).reverse();
         const datesArr = data.map(day => moment(day.date).format('MM/DD/YYYY')).reverse();
@@ -73,10 +78,6 @@ const ExerciseGoal = () => {
       console.error('Error adding exercise:', err);
     }
   };
-
-  if (!localStorage.getItem('jwtToken')) {
-    return <Redirect to="/login" />;
-  }
 
   return (
     <div>

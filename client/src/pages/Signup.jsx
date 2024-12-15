@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import axios from 'axios';
-import SignupComponent from '../../components/SignupComponent';
+import SignupComponent from '../components/SIgnup';
 
 const Signup = ({ history }) => {
   const [formData, setFormData] = useState({
