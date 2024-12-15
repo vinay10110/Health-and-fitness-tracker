@@ -8,7 +8,6 @@ import Grid from '@mui/material/Grid';
 import ChartsLine from '../components/ChartsLine';
 import styled from 'styled-components';
 
-// Styled Components
 const RootPaper = styled(Paper)`
   padding: 16px;
   margin: 5% 4% -3% 4%;

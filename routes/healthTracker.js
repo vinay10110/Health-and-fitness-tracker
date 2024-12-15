@@ -1,11 +1,10 @@
 const router = require('express').Router();
 const db = require('../controllers/index');
-const passport = require('passport');
-require('../config/passport')(passport);
+const Authenticate=require('../config/Authenticate')
 
 
-router.post('/newUser', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const token = getToken(req.headers);
+router.post('/newUser', (req, res) => {
+    const token = req.headers.authorization;
     if (token) {
       console.log('user is loggd in to the post route newUser');
       db.User.createUser(req, res);
@@ -16,7 +15,7 @@ router.post('/newUser', passport.authenticate('jwt', { session: false }), (req, 
 );
 
 router.post('/newDay', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const token = getToken(req.headers);
+  const token = req.headers.authorization;
     if (token) {
       console.log('user is loggd in to the post route for newDay');
       db.Day.createDay(req, res);
@@ -28,7 +27,7 @@ router.post('/newDay', passport.authenticate('jwt', { session: false }), (req, r
 
 
 router.post('/newExercise', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('user is loggd in to the post route for NewExercise');
     db.Exercise.addExercise(req, res);
@@ -40,7 +39,7 @@ router.post('/newExercise', passport.authenticate('jwt', { session: false }), (r
 
 
 router.get('/user/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('user is loggd in to the get route user:id');
     db.User.findUserById(req, res);
@@ -52,7 +51,7 @@ router.get('/user/:id', passport.authenticate('jwt', { session: false }), (req, 
 
 
 router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('user is loggd in to the get route for day:id');
     db.Day.addWater(req, res)
@@ -64,7 +63,7 @@ router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, r
 
   
 router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('user is loggd in to the get route for day:id');
     db.Day.updateNutrition(req, res)
@@ -76,7 +75,7 @@ router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, r
 
 
 router.post('/newWater', passport.authenticate('jwt', { session: false}), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('Water is being added');
     db.Day.addWater(req, res);
@@ -88,7 +87,7 @@ router.post('/newWater', passport.authenticate('jwt', { session: false}), (req, 
 ;
 
 router.post('/updateNutrition', passport.authenticate('jwt', { session: false}), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('Nutrition is being added');
     db.Day.updateNutrition(req, res);
@@ -100,7 +99,7 @@ router.post('/updateNutrition', passport.authenticate('jwt', { session: false}),
 
 
 router.post('/updateWeight', passport.authenticate('jwt', { session: false}), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log("Weight is being updated");
     db.Day.updateWeight(req, res)
@@ -113,7 +112,7 @@ router.post('/updateWeight', passport.authenticate('jwt', { session: false}), (r
 
 
 router.get('/getDays/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('user is loggd in to the get route for day:id');
     db.Day.findDayByuserId(req,res)
@@ -125,7 +124,7 @@ router.get('/getDays/:userId', passport.authenticate('jwt', { session: false }),
 
 
 router.get('/getDaysWeight/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = getToken(req.headers);
+  const token = req.headers.authorization;
   if (token) {
     console.log('user is loggd in to the get route for day:id');
     db.Day.findDayWeightByuserId(req,res)

@@ -1,10 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import ExerciseGoalCard from '../components/Exercise';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import moment from 'moment';
-import axios from 'axios';
 
 const ExerciseGoal = () => {
   const [currentDayId, setCurrentDayId] = useState('');
@@ -15,21 +13,33 @@ const ExerciseGoal = () => {
   const [quantities, setQuantities] = useState([]);
   const [dates, setDates] = useState([]);
 
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();  
 
   useEffect(() => {
-    // Check if token exists, if not redirect to login page
+   
     if (!localStorage.getItem('jwtToken')) {
-      navigate('/login');  // Redirect to login if token is not found
+      navigate('/login');  
     }
 
     const fetchDays = async () => {
       try {
-        const url = `/api/healthtracker/getDays/${localStorage.getItem('userId')}`;
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        const userId = localStorage.getItem('userId');
+        const url = `/api/healthtracker/getDays/${userId}`;
+        const token = localStorage.getItem('jwtToken');
 
-        const res = await axios.get(url);
-        const data = res.data;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
 
         const exerciseQuantities = data.map(day => day.totalActivity).reverse();
         const datesArr = data.map(day => moment(day.date).format('MM/DD/YYYY')).reverse();
@@ -45,7 +55,7 @@ const ExerciseGoal = () => {
     };
 
     fetchDays();
-  }, []);
+  }, [navigate]);
 
   const handleDurationChange = (e) => {
     setNewDuration(parseInt(e.target.value) || 0);
@@ -66,13 +76,28 @@ const ExerciseGoal = () => {
     setDailyTotal(updatedDailyTotal);
 
     try {
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      await axios.post('/api/healthTracker/newExercise', {
+      const token = localStorage.getItem('jwtToken');
+      const url = `${import.meta.env.VITYE_API_URL}/health/newExercise`;
+      const body = JSON.stringify({
         exercise: newExercise,
         duration: newDuration,
         totalActivity: updatedDailyTotal,
         currentDayId: currentDayId
       });
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        body: body
+      });
+
+      if (!response.ok) {
+        throw new Error('Error adding exercise');
+      }
+
       console.log('Exercise added successfully!');
     } catch (err) {
       console.error('Error adding exercise:', err);

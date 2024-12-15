@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import WeightGoalCard from '../components/Weight';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  
 import moment from 'moment';
 
 const WeightGoal = () => {
@@ -13,23 +12,34 @@ const WeightGoal = () => {
   const [quantities, setQuantities] = useState([]);
   const [dates, setDates] = useState([]);
 
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();  
 
   useEffect(() => {
-    // Fetch weight data when the component mounts
+   
     const fetchData = async () => {
       const url = `/api/healthtracker/getDaysWeight/${localStorage.getItem('userId')}`;
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem('jwtToken');
 
       try {
-        const res = await axios.get(url);
-        const data = res.data;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          }
+        });
 
-        // Process data
+        if (!response.ok) {
+          throw new Error('Error fetching weight data');
+        }
+
+        const data = await response.json();
+
+       
         const weightQuantities = data.map(entry => entry.weight).reverse();
         const datesArr = data.map(entry => moment(entry.date).format('MM/DD/YYYY')).reverse();
 
-        // Set state
+        
         setWeight(data[0]?.weight || 0);
         setUpdatedWeight(data[0]?.weight || 0);
         setCurrentDayId(data[0]?._id || '');
@@ -53,11 +63,25 @@ const WeightGoal = () => {
       setQuantities(updatedQuantities);
       setWeight(updatedWeight);
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      await axios.post('/api/healthTracker/updateWeight', {
+      const url = `${import.meta.env.VITE_API_URL}health/updateWeight`;
+      const token = localStorage.getItem('jwtToken');
+      const body = JSON.stringify({
         weight: updatedWeight,
         id: currentDayId
       });
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        body: body
+      });
+
+      if (!response.ok) {
+        throw new Error('Error updating weight');
+      }
 
       console.log('Weight updated successfully');
     } catch (err) {
@@ -65,10 +89,10 @@ const WeightGoal = () => {
     }
   };
 
-  // Redirect if no JWT token is found
+  
   if (!localStorage.getItem('jwtToken')) {
-    navigate("/login");  // Use navigate instead of Redirect
-    return null; // Prevent the rest of the component from rendering
+    navigate("/login");  
+    return null; 
   }
 
   return (

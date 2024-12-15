@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import NutritionGoalCard from '../components/Nutrition';
 import { useNavigate } from 'react-router-dom';  
-import axios from 'axios';
 import moment from 'moment';
 
 const NutritionGoal = () => {
@@ -50,10 +49,21 @@ const NutritionGoal = () => {
     const fetchData = async () => {
       try {
         const url = `/api/healthtracker/getDays/${userId}`;
-        axios.defaults.headers.common['Authorization'] = token;
+        const token = localStorage.getItem('jwtToken');
 
-        const res = await axios.get(url);
-        const data = res.data;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
 
         const nutritionQuantities = data.map(day => day.nutrition).reverse();
         const datesArr = data.map(day => moment(day.date).format('MM/DD/YYYY')).reverse();
@@ -86,11 +96,25 @@ const NutritionGoal = () => {
       const updatedQuantities = [...quantities.slice(0, -1), updatedNutrition];
       setQuantities(updatedQuantities);
 
-      axios.defaults.headers.common['Authorization'] = token;
-      await axios.post('/api/healthTracker/updateNutrition', {
+      const url = `${import.meta.env.VITE_API_URL}/api/health/updateNutrition`;
+      const token = localStorage.getItem('jwtToken');
+      const body = JSON.stringify({
         nutrition: progress,
         id: currentDayId
       });
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json'
+        },
+        body: body
+      });
+
+      if (!response.ok) {
+        throw new Error('Error updating nutrition');
+      }
 
       console.log('Nutrition data updated successfully!');
     } catch (err) {
@@ -103,7 +127,6 @@ const NutritionGoal = () => {
     setToggled(prevState => ({ ...prevState, [name]: event.target.checked }));
   };
 
-  
   useEffect(() => {
     if (!token) {
       navigate("/login");  

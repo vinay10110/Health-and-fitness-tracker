@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import WaterGoalCard from '../components/Water';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  
 import moment from 'moment';
 
 const WaterGoal = () => {
@@ -25,13 +24,24 @@ const WaterGoal = () => {
   useEffect(() => {
     const fetchWaterData = async () => {
       try {
-        const url = `/api/healthtracker/getDays/${localStorage.getItem('userId')}`;
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        const url = `${import.meta.env.VITE_API_URL}/health/getDays/${localStorage.getItem('userId')}`;
+        const token = localStorage.getItem('jwtToken');
 
-        const res = await axios.get(url);
-        const data = res.data;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+          }
+        });
 
-        // Prepare water data for state
+        if (!response.ok) {
+          throw new Error('Failed to fetch water data');
+        }
+
+        const data = await response.json();
+
+        
         const waterQuantities = data.map(entry => entry.water).reverse();
         const datesArr = data.map(entry => moment(entry.date).format("MM/DD/YYYY")).reverse();
 
@@ -47,7 +57,7 @@ const WaterGoal = () => {
     fetchWaterData();
   }, []);
 
-  // Add glass handler
+  
   const addGlass = (number) => {
     const newTotal = glasses + number;
     const updatedQuantities = [...quantities.slice(0, -1), newTotal];
@@ -55,23 +65,37 @@ const WaterGoal = () => {
     setGlasses(newTotal);
     setQuantities(updatedQuantities);
 
-    // Update server
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .post('/api/healthTracker/newWater', {
-        water: newTotal,
-        id: currentDayId
+    
+    const url = `${import.meta.env.VITE_API_URL}/health/newWater`;
+    const token = localStorage.getItem('jwtToken');
+    const body = JSON.stringify({
+      water: newTotal,
+      id: currentDayId
+    });
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      },
+      body: body
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error updating water');
+        }
+        console.log('Water updated successfully');
       })
-      .then(() => console.log('Water updated successfully'))
       .catch(err => console.error('Error updating water:', err));
   };
 
-  // Handle input change
+ 
   const handleChange = (e) => {
     setUpdatedWater(parseInt(e.target.value) || 0);
   };
 
-  // Handle manual water update
+  
   const handleClick = () => {
     if (!updatedWater) return;
 
@@ -81,14 +105,28 @@ const WaterGoal = () => {
     setGlasses(newTotal);
     setQuantities(updatedQuantities);
 
-    // Update server
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios
-      .post('/api/healthTracker/newWater', {
-        water: newTotal,
-        id: currentDayId
+    
+    const url = `${import.meta.env.VITE_API_URL}/health/newWater`;
+    const token = localStorage.getItem('jwtToken');
+    const body = JSON.stringify({
+      water: newTotal,
+      id: currentDayId
+    });
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      },
+      body: body
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error updating water');
+        }
+        console.log('Water updated successfully');
       })
-      .then(() => console.log('Water updated successfully'))
       .catch(err => console.error('Error updating water:', err));
   };
 
