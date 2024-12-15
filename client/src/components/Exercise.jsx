@@ -79,101 +79,99 @@ const ExerciseGoalCard = ({
   return (
     <div>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Root elevation={1}>
-            <Typography variant="h5" align="center">
-              Exercise Tracker
-            </Typography>
-            <Typography align="center">
-              Select a workout below and choose the duration of the activity.
-              Each activity will be tracked in minutes. Your daily workouts are displayed
-              below along with a historic graph of the last 7 days. 
-            </Typography>
+  <Grid item xs={12} md={6}>
+    <Root elevation={1}>
+      <Typography variant="h5" align="center">
+        Exercise Tracker
+      </Typography>
+      <Typography align="center">
+        Select a workout below and choose the duration of the activity.
+        Each activity will be tracked in minutes. Your daily workouts are displayed
+        below along with a historic graph of the last 7 days. 
+      </Typography>
 
-            <ProgressPaper>
-              <Typography align="center" variant="body2">
-                Current Progress: {totalActivity} mins
-              </Typography>
-            </ProgressPaper>
+      <ProgressPaper>
+        <Typography align="center" variant="body2">
+          Current Progress: {totalActivity} mins
+        </Typography>
+      </ProgressPaper>
 
-            <Grid container spacing={16}>
-              <Grid item xs={12}>
-                <form autoComplete="off">
-                  <FormControlStyled fullWidth>
-                    <InputLabel htmlFor="workout-simple">Workouts</InputLabel>
-                    <Select
-                      value={activity}
-                      onChange={handleExerciseChange}
-                      inputProps={{ name: 'activity', id: 'workout-simple' }}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={'Walking'}>Walking</MenuItem>
-                      <MenuItem value={'Jogging'}>Jogging</MenuItem>
-                      <MenuItem value={'Running'}>Running</MenuItem>
-                      <MenuItem value={'Swimming'}>Swimming</MenuItem>
-                      <MenuItem value={'Cycling'}>Cycling</MenuItem>
-                      <MenuItem value={'Yoga'}>Yoga</MenuItem>
-                      <MenuItem value={'HIIT'}>HIIT</MenuItem>
-                      <MenuItem value={'Strength Training'}>Strength Training</MenuItem>
-                      <MenuItem value={'stairStepper'}>Stair Stepper</MenuItem>
-                      <MenuItem value={'boxing'}>Boxing</MenuItem>
-                      <MenuItem value={'other'}>Other</MenuItem>
-                    </Select>
-                    <FormHelperText>Select the workout and duration</FormHelperText>
-                  </FormControlStyled>
-                </form>
-              </Grid>
-
-              <Grid item xs={12}>
-                <form noValidate autoComplete="off">
-                  <TextFieldStyled
-                    id="addMinutes"
-                    label="Enter Minutes"
-                    value={minutes}
-                    onChange={handleDurationChange}
-                    type="number"
-                    fullWidth
-                  />
-                </form>
-              </Grid>
-
-              <Grid item xs={12}>
-                <SubmitButton onClick={addExercise} variant="contained">
-                  Submit
-                </SubmitButton>
-              </Grid>
-            </Grid>
-          </Root>
+      <Grid container spacing={5}>
+        <Grid item xs={12}>
+          <form autoComplete="off">
+            <FormControlStyled fullWidth>
+              <InputLabel htmlFor="workout-simple">Workouts</InputLabel>
+              <Select
+                value={activity}
+                onChange={handleExerciseChange}
+                inputProps={{ name: 'activity', id: 'workout-simple' }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={'Walking'}>Walking</MenuItem>
+                <MenuItem value={'Jogging'}>Jogging</MenuItem>
+                <MenuItem value={'Running'}>Running</MenuItem>
+                <MenuItem value={'Swimming'}>Swimming</MenuItem>
+                <MenuItem value={'Cycling'}>Cycling</MenuItem>
+                <MenuItem value={'Yoga'}>Yoga</MenuItem>
+                <MenuItem value={'HIIT'}>HIIT</MenuItem>
+                <MenuItem value={'Strength Training'}>Strength Training</MenuItem>
+                <MenuItem value={'stairStepper'}>Stair Stepper</MenuItem>
+                <MenuItem value={'boxing'}>Boxing</MenuItem>
+                <MenuItem value={'other'}>Other</MenuItem>
+              </Select>
+              <FormHelperText>Select the workout and duration</FormHelperText>
+            </FormControlStyled>
+          </form>
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <Root elevation={1}>
-            <Typography variant="h5" align="center">
-              Today
-            </Typography>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Exercises</TableCell>
-                  <TableCell>Duration</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {renderTableRows(todaysActivities)}
-              </TableBody>
-            </Table>
-          </Root>
+        <Grid item xs={12}>
+          <form noValidate autoComplete="off">
+            <TextFieldStyled
+              id="addMinutes"
+              label="Enter Minutes"
+              value={minutes}
+              onChange={handleDurationChange}
+              type="number"
+              fullWidth
+            />
+          </form>
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <GraphPaper elevation={1}>
-            <Typography variant="h6" align="center">History (Last 7 Days)</Typography>
-            <ChartsBar quantities={quantities} dates={dates} />
-          </GraphPaper>
+        <Grid item xs={12}>
+          <SubmitButton onClick={addExercise} variant="contained">
+            Submit
+          </SubmitButton>
         </Grid>
       </Grid>
+    </Root>
+  </Grid>
+
+  {/* Now, the Today table and the History chart are stacked vertically in the same column */}
+  <Grid item xs={12} md={6}>
+    <Root elevation={1}>
+      <Typography variant="h5" align="center">
+        Today
+      </Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Exercises</TableCell>
+            <TableCell>Duration</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {renderTableRows(todaysActivities)}
+        </TableBody>
+      </Table>
+    </Root>
+    <GraphPaper elevation={1}>
+      <Typography variant="h6" align="center">History (Last 7 Days)</Typography>
+      <ChartsBar quantities={quantities} dates={dates} />
+    </GraphPaper>
+  </Grid>
+</Grid>
     </div>
   );
 };

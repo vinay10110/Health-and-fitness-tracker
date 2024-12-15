@@ -13,7 +13,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
 
-// Styled Components
+
 const Root = styled(Paper)`
   padding-top: 16px;
   padding-bottom: 16px;
@@ -53,16 +53,16 @@ const Login = ({
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    if (usernameAction) usernameAction(event);  // Calling the parent onChange
+    if (usernameAction) usernameAction(event);  
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    if (passwordAction) passwordAction(event);  // Calling the parent onChange
+    if (passwordAction) passwordAction(event);  
   };
 
   const handleSubmit = () => {
-    if (submitAction) submitAction();  // Calling the parent submit function
+    if (submitAction) submitAction();  
   };
 
   return (
@@ -100,13 +100,13 @@ const Login = ({
               size="large"
               variant="contained"
               color="primary"
-              onClick={handleSubmit}  // Call handleSubmit when clicked
+              onClick={handleSubmit}  
             >
               Submit
             </StyledButton>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <StyledButton size="small" variant="contained" href="/signup">
+            <StyledButton size="large" variant="contained" href="/signup">
               New User
             </StyledButton>
           </Grid>

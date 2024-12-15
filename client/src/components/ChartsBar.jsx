@@ -17,7 +17,7 @@ const Chart = ({ dates, quantities }) => {
   const chartData = {
     labels: dates,
     datasets: [{
-      label: 'Nutrition Progress',
+      label: 'Progress',
       borderColor: 'rgba(77, 102, 240, 0.5411764705882353)', 
       backgroundColor: 'rgba(77, 102, 240, 0.5411764705882353)', 
       data: quantities,

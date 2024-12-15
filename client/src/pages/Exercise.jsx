@@ -97,7 +97,6 @@ const ExerciseGoal = () => {
         throw new Error('Error adding exercise');
       }
 
-      console.log('Exercise added successfully!');
     } catch (err) {
       console.error('Error adding exercise:', err);
     }
