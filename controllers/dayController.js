@@ -31,16 +31,20 @@ module.exports = {
     },
 
     updateWeight: function(req, res) {
-        Day
-        .findOne({_id: req.body.id})
-        .then(dbDay => {
-            dbDay.weight = req.body.weight
-            dbDay.save()
-            return res.json(db.Day)
-        })
-        .catch(err => res.status(422).json(err))
+        Day.findOne({ _id: req.body.id })
+            .then(dbDay => {
+                if (!dbDay) {
+                    return res.status(404).json({ message: "Day not found" });
+                }
+                
+                dbDay.weight = req.body.weight;  
+                return dbDay.save();  
+            })
+            .then(updatedDay => {
+                return res.json(updatedDay);  
+            })
+            .catch(err => res.status(422).json(err));  
     },
-
 
     addWater: function(req, res) {
         console.log(req.body)

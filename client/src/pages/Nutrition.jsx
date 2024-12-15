@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import NutritionGoalCard from '../components/Nutrition';
@@ -48,7 +49,7 @@ const NutritionGoal = () => {
     
     const fetchData = async () => {
       try {
-        const url = `/api/healthtracker/getDays/${userId}`;
+        const url = `${import.meta.env.VITE_API_URL}/health/getDays/${userId}`;
         const token = localStorage.getItem('jwtToken');
 
         const response = await fetch(url, {
@@ -78,7 +79,7 @@ const NutritionGoal = () => {
     };
 
     fetchData();
-  }, [token, userId, toggled]);
+  }, [token, userId]);
 
   const handleCheckboxChange = (e) => {
     const { value } = e.target;
@@ -96,7 +97,7 @@ const NutritionGoal = () => {
       const updatedQuantities = [...quantities.slice(0, -1), updatedNutrition];
       setQuantities(updatedQuantities);
 
-      const url = `${import.meta.env.VITE_API_URL}/api/health/updateNutrition`;
+      const url = `${import.meta.env.VITE_API_URL}/health/updateNutrition`;
       const token = localStorage.getItem('jwtToken');
       const body = JSON.stringify({
         nutrition: progress,
@@ -111,7 +112,7 @@ const NutritionGoal = () => {
         },
         body: body
       });
-
+console.log(response);
       if (!response.ok) {
         throw new Error('Error updating nutrition');
       }

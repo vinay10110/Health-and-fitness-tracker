@@ -58,9 +58,7 @@ const Navbar = ({ classes }) => {
         <ListItem component="a" href="/weight" style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemText primary="Weight" />
         </ListItem>
-        <ListItem component="a" href="/info" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <ListItemText primary="More Info" />
-        </ListItem>
+   
       </div>
     </div>
   );

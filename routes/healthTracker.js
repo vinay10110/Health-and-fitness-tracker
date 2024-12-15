@@ -74,7 +74,7 @@ router.post('/updateNutrition', async (req, res) => {
 
     try {
         await verifyToken(token);
-        db.Day.updateNutrition(req, res);
+        await db.Day.updateNutrition(req, res);
     } catch (err) {
         return res.status(err.status).json({ success: false, message: err.message });
     }
@@ -85,7 +85,7 @@ router.post('/updateWeight', async (req, res) => {
 
     try {
         await verifyToken(token);
-        db.Day.updateWeight(req, res);
+        const weightDoc=await db.Day.updateWeight(req, res);
     } catch (err) {
         return res.status(err.status).json({ success: false, message: err.message });
     }

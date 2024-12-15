@@ -54,8 +54,10 @@ const Login = () => {
       localStorage.setItem('jwtToken', data.token);
       localStorage.setItem('userId', data.userId);
 
-     
+     if(response.ok){
       navigate('/'); 
+     }
+     
     } catch (error) {
       console.error('Login Error:', error);
       if (error.message === 'Login failed') {

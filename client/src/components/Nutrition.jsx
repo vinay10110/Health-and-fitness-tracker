@@ -10,7 +10,6 @@ import ListItemText from '@mui/material/ListItemText';
 import ChartsBar from './ChartsBar';
 import styled from 'styled-components';
 
-// Styled Components
 const RootPaper = styled(Paper)`
   padding: 16px;
   margin: 4% 5% 0% 5%;

@@ -19,7 +19,6 @@ const DashBoard = () => {
   const totalExerciseMinutes = (arr) => {
     return arr.reduce((total, activity) => total + activity.duration, 0);
   };
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -33,6 +32,7 @@ const DashBoard = () => {
             'Content-Type': 'application/json',
           },
         });
+      
         if (!res.ok) {
           throw new Error('Failed to fetch user data');
         }

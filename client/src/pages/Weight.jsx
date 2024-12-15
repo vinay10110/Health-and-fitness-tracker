@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 const WeightGoal = () => {
-  const [redirect, setRedirect] = useState(false);
   const [weight, setWeight] = useState(0);
   const [updatedWeight, setUpdatedWeight] = useState(0);
   const [currentDayId, setCurrentDayId] = useState('');
@@ -17,7 +16,7 @@ const WeightGoal = () => {
   useEffect(() => {
    
     const fetchData = async () => {
-      const url = `/api/healthtracker/getDaysWeight/${localStorage.getItem('userId')}`;
+      const url = `${import.meta.env.VITE_API_URL}/health/getDaysWeight/${localStorage.getItem('userId')}`;
       const token = localStorage.getItem('jwtToken');
 
       try {
@@ -63,7 +62,7 @@ const WeightGoal = () => {
       setQuantities(updatedQuantities);
       setWeight(updatedWeight);
 
-      const url = `${import.meta.env.VITE_API_URL}health/updateWeight`;
+      const url = `${import.meta.env.VITE_API_URL}/health/updateWeight`;
       const token = localStorage.getItem('jwtToken');
       const body = JSON.stringify({
         weight: updatedWeight,
@@ -83,7 +82,6 @@ const WeightGoal = () => {
         throw new Error('Error updating weight');
       }
 
-      console.log('Weight updated successfully');
     } catch (err) {
       console.error('Error updating weight:', err);
     }

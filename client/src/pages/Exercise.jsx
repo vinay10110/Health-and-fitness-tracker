@@ -77,7 +77,7 @@ const ExerciseGoal = () => {
 
     try {
       const token = localStorage.getItem('jwtToken');
-      const url = `${import.meta.env.VITYE_API_URL}/health/newExercise`;
+      const url = `${import.meta.env.VITE_API_URL}/health/newExercise`;
       const body = JSON.stringify({
         exercise: newExercise,
         duration: newDuration,
@@ -93,7 +93,6 @@ const ExerciseGoal = () => {
         },
         body: body
       });
-    console.log(response);
       if (!response.ok) {
         throw new Error('Error adding exercise');
       }
