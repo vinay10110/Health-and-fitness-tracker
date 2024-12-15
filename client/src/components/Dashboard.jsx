@@ -88,7 +88,7 @@ const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) 
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell style={styles.tableCellStyle}>Weight (LBS)</TableCell>
+                    <TableCell style={styles.tableCellStyle}>Weight (KGs)</TableCell>
                     <TableCell style={styles.tableCellStyle}>{weight}</TableCell>
                     <TableCell>
                       <Tooltip title="Go to Weight Page" placement="right">

@@ -52,7 +52,7 @@ class WeightGoalsComponent extends React.Component {
               </InfoTypography>
               <ProgressPaper>
                 <CenteredTypography variant="body2">
-                  Current Weight: {this.props.weight} lbs
+                  Current Weight: {this.props.weight} kgs
                 </CenteredTypography>
               </ProgressPaper>
 

@@ -13,7 +13,7 @@ module.exports = {
 
             
             const newDbDay = await Day.create(req.body);
-
+             console.log(newDbDay);
             
             const dbUser = await User.findById(req.body.userId);
 
