@@ -3,7 +3,6 @@ import { Bar } from 'react-chartjs-2';
 import { Chart } from 'chart.js';
 import styled from 'styled-components';
 
-// Disable the chart.js legend display globally
 Chart.defaults.set({
   plugins: {
     legend: {
@@ -12,7 +11,7 @@ Chart.defaults.set({
   }
 });
 
-// Styled component for the chart container
+
 const ChartContainer = styled.div`
   height: 100%;
   width: 100%;

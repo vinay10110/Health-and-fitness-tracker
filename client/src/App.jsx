@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import DashBoard from './pages/DashBoard';
 import Login from './pages/Login';
@@ -8,28 +8,23 @@ import NutritionPage from './pages/Nutrition';
 import ExercisePage from './pages/Exercise';
 import WeightPage from './pages/Weight';
 
-
 function App() {
-  
-
   return (
-    <>
-       <Router>
-    <div>
-      <NavBar />
-      <Routes>
-        <Route exact path="/" component={DashBoard} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/water" component={WaterPage} />
-        <Route exact path="/nutrition" component={NutritionPage} />
-        <Route exact path="/exercise" component={ExercisePage} />
-        <Route exact path="/weight" component={WeightPage} />
+    <Router>
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<DashBoard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/water" element={<WaterPage />} />
+          <Route path="/nutrition" element={<NutritionPage />} />
+          <Route path="/exercise" element={<ExercisePage />} />
+          <Route path="/weight" element={<WeightPage />} />
         </Routes>
-    </div>
-  </Router>
-    </>
-  )
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

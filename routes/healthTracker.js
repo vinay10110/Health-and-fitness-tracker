@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const db = require('../../controllers');
+const db = require('../controllers/index');
 const passport = require('passport');
-require('../../config/passport')(passport);
+require('../config/passport')(passport);
 
-// Matches with "/api/healthTracker"
+
 router.post('/newUser', passport.authenticate('jwt', { session: false }), (req, res) => {
     const token = getToken(req.headers);
     if (token) {
@@ -15,7 +15,6 @@ router.post('/newUser', passport.authenticate('jwt', { session: false }), (req, 
   }
 );
 
-// Creates a new day with default values
 router.post('/newDay', passport.authenticate('jwt', { session: false }), (req, res) => {
     const token = getToken(req.headers);
     if (token) {
@@ -27,7 +26,7 @@ router.post('/newDay', passport.authenticate('jwt', { session: false }), (req, r
   }
 );
 
-// Adds exercise to the given day, !! NEEDS WORK !!
+
 router.post('/newExercise', passport.authenticate('jwt', { session: false }), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -39,7 +38,7 @@ router.post('/newExercise', passport.authenticate('jwt', { session: false }), (r
  }
 );
 
-// Gets all the user data for a given userId
+
 router.get('/user/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -51,7 +50,7 @@ router.get('/user/:id', passport.authenticate('jwt', { session: false }), (req, 
  }
 );
 
-// Get Water route -- Gets a specific day by the dayId
+
 router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -63,7 +62,7 @@ router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, r
  }
 );
 
-// Get Nutrition route -- Gets a specific day by the dayId  
+  
 router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -75,7 +74,7 @@ router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, r
  }
 );
 
-// Adds water to the given day.
+
 router.post('/newWater', passport.authenticate('jwt', { session: false}), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -87,7 +86,7 @@ router.post('/newWater', passport.authenticate('jwt', { session: false}), (req, 
  }
 )
 ;
-// Updates nutrition to the given day.
+
 router.post('/updateNutrition', passport.authenticate('jwt', { session: false}), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -99,7 +98,7 @@ router.post('/updateNutrition', passport.authenticate('jwt', { session: false}),
  }
 );
 
-// Updates user's weight for a given date
+
 router.post('/updateWeight', passport.authenticate('jwt', { session: false}), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -112,7 +111,7 @@ router.post('/updateWeight', passport.authenticate('jwt', { session: false}), (r
 );
 
 
-// Gets all the days for a given userId
+
 router.get('/getDays/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
   const token = getToken(req.headers);
   if (token) {
@@ -124,7 +123,7 @@ router.get('/getDays/:userId', passport.authenticate('jwt', { session: false }),
  }
 );
 
-// Gets last 30 days for a given userId
+
 router.get('/getDaysWeight/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
   const token = getToken(req.headers);
   if (token) {

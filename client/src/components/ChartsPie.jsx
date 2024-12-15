@@ -2,7 +2,6 @@
 import { Pie } from 'react-chartjs-2';
 import styled from 'styled-components';
 
-// Styled component for the chart container
 const ChartContainer = styled.div`
   height: 100%;
   width: 100%;

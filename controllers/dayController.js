@@ -1,16 +1,17 @@
-const db = require("../models")
+const Day=require('../models/Day');
+const User=require('../models/User');
 module.exports = {
 
-    //Day Controller
+  
     createDay: function(req, res) {
-        db.Day.findOne({date: req.body.date, userId: req.body.userId, weight: req.body.weight})
+        Day.findOne({date: req.body.date, userId: req.body.userId, weight: req.body.weight})
         .then(dbDay => {
             if (dbDay) {
                 return res.json(dbDay)
             } else {
-                db.Day.create(req.body)
+                Day.create(req.body)
                 .then(newDbDay => {
-                    db.User.findById({_id: req.body.userId})
+                    User.findById({_id: req.body.userId})
                     .then(dbUser => {
                         dbUser.days.push(newDbDay._id)
                         dbUser.save()
@@ -22,7 +23,7 @@ module.exports = {
     },
 
     updateWeight: function(req, res) {
-        db.Day
+        Day
         .findOne({_id: req.body.id})
         .then(dbDay => {
             dbDay.weight = req.body.weight
@@ -32,9 +33,9 @@ module.exports = {
         .catch(err => res.status(422).json(err))
     },
 
-    //Update Water for the day
+
     addWater: function(req, res) {
-        db.Day
+        Day
         .findOne({ _id: req.body.id })
         .then(dbModel => {
             dbModel.water = req.body.water
@@ -44,9 +45,9 @@ module.exports = {
         .catch(err => res.status(422).json(err));
     },
 
-    //Update Nutrition for the day
+  
     updateNutrition: function(req,res) {
-        db.Day
+        Day
         .findOne({_id: req.body.id})
         .then(dbDay => {
             dbDay.nutrition = req.body.nutrition
@@ -57,7 +58,7 @@ module.exports = {
     },
 
     findDayByuserId: function(req, res) {
-        db.Day
+        Day
         .find({userId: req.params.userId}, null, {sort: {date: -1}, limit: 7} )
         .populate("exercises")
         .then(dbDays => {
@@ -67,7 +68,7 @@ module.exports = {
     },
 
     findDayWeightByuserId: function(req, res) {
-        db.Day
+        Day
         .find({userId: req.params.userId}, null, {sort: {date: -1}, limit: 30} ) 
         .then(dbDays => {
             return res.json(dbDays)

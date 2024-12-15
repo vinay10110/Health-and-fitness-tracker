@@ -1,30 +1,28 @@
 /* eslint-disable react/prop-types */
-import Grid from '@mui/material/Grid';  // Updated to @mui/material
-import Card from '@mui/material/Card';  // Updated to @mui/material
-import CardContent from '@mui/material/CardContent';  // Updated to @mui/material
-import Typography from '@mui/material/Typography';  // Updated to @mui/material
-import Table from '@mui/material/Table';  // Updated to @mui/material
-import TableBody from '@mui/material/TableBody';  // Updated to @mui/material
-import TableCell from '@mui/material/TableCell';  // Updated to @mui/material
-import TableRow from '@mui/material/TableRow';  // Updated to @mui/material
-import Tooltip from '@mui/material/Tooltip';  // Updated to @mui/material
-import Avatar from '@mui/material/Avatar';  // Updated to @mui/material
-import FontAwesome from 'react-fontawesome';  // This is a third-party library, no change needed
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTint, faUtensils, faDumbbell, faWeight } from '@fortawesome/free-solid-svg-icons';
+import Grid from '@mui/material/Grid';  
+import Card from '@mui/material/Card';  
+import CardContent from '@mui/material/CardContent';  
+import Typography from '@mui/material/Typography'; 
+import Table from '@mui/material/Table'; 
+import TableBody from '@mui/material/TableBody';  
+import TableCell from '@mui/material/TableCell';  
+import TableRow from '@mui/material/TableRow';  
+import Tooltip from '@mui/material/Tooltip';  
+import Avatar from '@mui/material/Avatar';   
 import ChartsPie from './ChartsPie';
-
-// Inline styles
-const styles = {
-  cardUser: { margin: "5%" },
-  tableCellStyle: { padding: 0 },
-  waterAvatar: { backgroundColor: '#63c5e4', margin: '5%', marginLeft: "17%" },
-  nutritionAvatar: { backgroundColor: '#10953bb8', margin: '5%', marginLeft: "17%" },
-  exerciseAvatar: { backgroundColor: '#825eb9b5', margin: '5%', marginLeft: "17%" },
-  weightAvatar: { backgroundColor: '#4d66f08a', margin: '5%', marginLeft: "17%" },
-  info: { margin: "4% 0" },
-  nameTitle: { marginTop: "8%" },
-};
-
-function Dashboard({ firstName, lastName, water, nutrition, exercise, weight }) {
+const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) => {
+  const styles = {
+    cardUser: { margin: "5%" },
+    tableCellStyle: { padding: 0 },
+    waterAvatar: { backgroundColor: '#63c5e4', margin: '5%', marginLeft: "17%" },
+    nutritionAvatar: { backgroundColor: '#10953bb8', margin: '5%', marginLeft: "17%" },
+    exerciseAvatar: { backgroundColor: '#825eb9b5', margin: '5%', marginLeft: "17%" },
+    weightAvatar: { backgroundColor: '#4d66f08a', margin: '5%', marginLeft: "17%" },
+    info: { margin: "4% 0" },
+    nameTitle: { marginTop: "8%" },
+  };
   return (
     <div>
       <Card style={styles.cardUser}>
@@ -57,7 +55,7 @@ function Dashboard({ firstName, lastName, water, nutrition, exercise, weight }) 
                       <Tooltip title="Go to Water Page" placement="right">
                         <Avatar style={styles.waterAvatar}>
                           <a href="/water" style={{ textDecoration: 'none', color: 'white' }}>
-                            <FontAwesome className="fas fa-tint" size="lg" />
+                            <FontAwesomeIcon icon={faTint} size="lg" />
                           </a>
                         </Avatar>
                       </Tooltip>
@@ -70,7 +68,7 @@ function Dashboard({ firstName, lastName, water, nutrition, exercise, weight }) 
                       <Tooltip title="Go to Nutrition Page" placement="right">
                         <Avatar style={styles.nutritionAvatar}>
                           <a href="/nutrition" style={{ textDecoration: 'none', color: 'white' }}>
-                            <FontAwesome className="fas fa-utensils" size="lg" />
+                            <FontAwesomeIcon icon={faUtensils} size="lg" />
                           </a>
                         </Avatar>
                       </Tooltip>
@@ -83,7 +81,7 @@ function Dashboard({ firstName, lastName, water, nutrition, exercise, weight }) 
                       <Tooltip title="Go to Exercise Page" placement="right">
                         <Avatar style={styles.exerciseAvatar}>
                           <a href="/exercise" style={{ textDecoration: 'none', color: 'white' }}>
-                            <FontAwesome className="fas fa-dumbbell" size="lg" />
+                            <FontAwesomeIcon icon={faDumbbell} size="lg" />
                           </a>
                         </Avatar>
                       </Tooltip>
@@ -96,7 +94,7 @@ function Dashboard({ firstName, lastName, water, nutrition, exercise, weight }) 
                       <Tooltip title="Go to Weight Page" placement="right">
                         <Avatar style={styles.weightAvatar}>
                           <a href="/weight" style={{ textDecoration: 'none', color: 'white' }}>
-                            <FontAwesome className="fas fa-weight" size="lg" />
+                            <FontAwesomeIcon icon={faWeight} size="lg" />
                           </a>
                         </Avatar>
                       </Tooltip>
@@ -110,6 +108,6 @@ function Dashboard({ firstName, lastName, water, nutrition, exercise, weight }) 
       </Card>
     </div>
   );
-}
+};
 
 export default Dashboard;

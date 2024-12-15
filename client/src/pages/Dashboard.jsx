@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import DashBoardComponent from '../components/Dashboard';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  
 import moment from 'moment';
 
 const DashBoard = () => {
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();  
   const [userId, setUserId] = useState(localStorage.getItem('userId'));
   const [currentDayId, setCurrentDayId] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -15,8 +14,6 @@ const DashBoard = () => {
   const [nutritionPoints, setNutritionPoints] = useState(0);
   const [exerciseMins, setExerciseMins] = useState(0);
   const [currentWeight, setCurrentWeight] = useState(0);
-  const [redirect, setRedirect] = useState(false);
-
   const todaysDate = moment().format('MM.DD.YYYY');
 
   const totalExerciseMinutes = (arr) => {
@@ -26,13 +23,24 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const url = `/api/healthtracker/user/${userId}`;
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        const url = `/api/health/user/${userId}`;
+        const token = localStorage.getItem('jwtToken');
         
-        const res = await axios.get(url);
-        const user = res.data;
+        const res = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': token ? `Bearer ${token}` : '',
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+
+        const user = await res.json();
         
-        let mostRecentDate = user.days.length
+        let mostRecentDate = user.days?.length
           ? moment(user.days[0].date).format('MM.DD.YYYY')
           : moment().add(-1, 'days').format('MM.DD.YYYY');
 
@@ -48,14 +56,25 @@ const DashBoard = () => {
           setFirstName(user.firstName);
           setLastName(user.lastName);
           setCurrentWeight(user.weight || 0);
-
-          // Create a new day
-          const newDayResponse = await axios.post('/api/healthtracker/newDay', {
-            userId,
-            weight: user.weight || 0,
-            date: todaysDate,
+          const newDayResponse = await fetch(`${import.meta.env.VITE_API_URL}/healthtracker/newDay`, {
+            method: 'POST',
+            headers: {
+              'Authorization': token ? `Bearer ${token}` : '',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId,
+              weight: user.weight || 0,
+              date: todaysDate,
+            }),
           });
-          setCurrentDayId(newDayResponse.data._id);
+                   
+          if (!newDayResponse.ok) {
+            throw new Error('Failed to create new day');
+          }
+
+          const newDayData = await newDayResponse.json();
+          setCurrentDayId(newDayData._id);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -65,10 +84,9 @@ const DashBoard = () => {
     fetchUserData();
   }, [userId, todaysDate]);
 
-  // Use useNavigate to redirect to login page if no jwtToken is found
   useEffect(() => {
     if (!localStorage.getItem('jwtToken')) {
-      navigate('/login');  // Redirect to login page using navigate
+      navigate('/login');  
     }
   }, [navigate]);
 

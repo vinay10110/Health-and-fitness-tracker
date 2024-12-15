@@ -1,12 +1,12 @@
-const db = require("../models")
-
+const Exercise=require('../models/Exercise');
+const Day=require('../models/Day');
 module.exports = {
     //Exercise Controllers
     addExercise: function(req, res) {
-        db.Exercise
+        Exercise
         .create({exercise: req.body.exercise, duration: req.body.duration})
         .then(exerciseModel => {
-            db.Day.findById({_id: req.body.currentDayId})
+            Day.findById({_id: req.body.currentDayId})
             .then(dayModel => {
                 dayModel.exercises.push(exerciseModel._id)
                 dayModel.totalActivity = req.body.totalActivity

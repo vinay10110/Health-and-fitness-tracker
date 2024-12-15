@@ -1,10 +1,8 @@
 const JwtStrategy = require('passport-jwt').Strategy,
   ExtractJwt = require('passport-jwt').ExtractJwt;
 
-// load up the user model
 const User = require('../models/User');
-const settings = require('../config/settings'); // get settings file
-
+const settings = require('./settings'); 
 module.exports = passport => {
   let opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');

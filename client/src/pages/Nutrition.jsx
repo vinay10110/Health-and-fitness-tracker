@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import NutritionGoalCard from '../components/Nutrition';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';  
 import axios from 'axios';
 import moment from 'moment';
 
@@ -26,10 +26,10 @@ const NutritionGoal = () => {
     noAlcohol: false
   });
 
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();  
 
   useEffect(() => {
-    // Reset toggled states on a new day
+    
     const savedDate = localStorage.getItem('date');
     if (moment().format('MM/DD/YYYY') !== savedDate) {
       localStorage.setItem('toggled', JSON.stringify(toggled));
@@ -46,7 +46,7 @@ const NutritionGoal = () => {
       )
     );
 
-    // Fetch nutrition data
+    
     const fetchData = async () => {
       try {
         const url = `/api/healthtracker/getDays/${userId}`;
@@ -103,10 +103,10 @@ const NutritionGoal = () => {
     setToggled(prevState => ({ ...prevState, [name]: event.target.checked }));
   };
 
-  // Redirect to login if no token is found
+  
   useEffect(() => {
     if (!token) {
-      navigate("/login");  // Redirect to login page
+      navigate("/login");  
     }
   }, [token, navigate]);
 

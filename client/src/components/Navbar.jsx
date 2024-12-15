@@ -1,12 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Toolbar, Button, IconButton, Drawer, ListItem, Divider, ListItemIcon, ListItemText } from '@mui/material';  // Updated to @mui/material
+import { AppBar, Toolbar, Button, IconButton, Drawer, ListItem, Divider, ListItemIcon, ListItemText } from '@mui/material'; 
 import Typography from '@mui/material/Typography';
-import MenuIcon from '@mui/icons-material/Menu';  // Updated to @mui/icons-material
-import HomeIcon from '@mui/icons-material/Home';  // Updated to @mui/icons-material
+import MenuIcon from '@mui/icons-material/Menu';  
+import HomeIcon from '@mui/icons-material/Home';  
 import { withStyles } from '@mui/styles';
-
 
 const styles = {
   root: {
@@ -39,41 +38,29 @@ const Navbar = ({ classes }) => {
 
   const sideList = (
     <div className={classes.list}>
-      <div >
-        <a style={{ textDecoration: 'none', color: 'white' }} href="/">
-          <ListItem button>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-        </a>
+      <div>
+        <ListItem component="a" href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+        </ListItem>
         <Divider />
-        <a style={{ textDecoration: 'none', color: 'white' }} href="/water">
-          <ListItem button>
-            <ListItemText primary="Water" />
-          </ListItem>
-        </a>
-        <a style={{ textDecoration: 'none', color: 'white' }} href="/nutrition">
-          <ListItem button>
-            <ListItemText primary="Nutrition" />
-          </ListItem>
-        </a>
-        <a style={{ textDecoration: 'none', color: 'white' }} href="/exercise">
-          <ListItem button>
-            <ListItemText primary="Exercise" />
-          </ListItem>
-        </a>
-        <a style={{ textDecoration: 'none', color: 'white' }} href="/weight">
-          <ListItem button>
-            <ListItemText primary="Weight" />
-          </ListItem>
-        </a>
-        <a style={{ textDecoration: 'none', color: 'white' }} href="/info">
-          <ListItem button>
-            <ListItemText primary="More Info" />
-          </ListItem>
-        </a>
+        <ListItem component="a" href="/water" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <ListItemText primary="Water" />
+        </ListItem>
+        <ListItem component="a" href="/nutrition" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <ListItemText primary="Nutrition" />
+        </ListItem>
+        <ListItem component="a" href="/exercise" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <ListItemText primary="Exercise" />
+        </ListItem>
+        <ListItem component="a" href="/weight" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <ListItemText primary="Weight" />
+        </ListItem>
+        <ListItem component="a" href="/info" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <ListItemText primary="More Info" />
+        </ListItem>
       </div>
     </div>
   );

@@ -1,18 +1,16 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React from 'react';
+import  { useState } from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';  // Updated to @mui/material
-import TextField from '@mui/material/TextField';  // Updated to @mui/material
-import Grid from '@mui/material/Grid';  // Updated to @mui/material
-import Button from '@mui/material/Button';  // Updated to @mui/material
-import Tooltip from '@mui/material/Tooltip';  // Updated to @mui/material
-import Dialog from '@mui/material/Dialog';  // Updated to @mui/material
-import DialogActions from '@mui/material/DialogActions';  // Updated to @mui/material
-import DialogContent from '@mui/material/DialogContent';  // Updated to @mui/material
-import DialogContentText from '@mui/material/DialogContentText';  // Updated to @mui/material
-import DialogTitle from '@mui/material/DialogTitle';  // Updated to @mui/material
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
 
 // Styled Components
@@ -27,9 +25,7 @@ const Header = styled(Typography)`
   text-align: center;
 `;
 
-const ButtonContainer = styled(Grid)`
-  padding-bottom: 6%;
-`;
+
 
 const CustomTextField = styled(TextField)`
   margin-bottom: 16px;
@@ -46,80 +42,104 @@ const StyledDialog = styled(Dialog)`
   }
 `;
 
-class Login extends React.Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        <Root elevation={1}>
-          <Header variant="h5" component="h3">
-            Log In
-          </Header>
-          <h4>{this.props.message}</h4>
+const Login = ({ message, usernameAction, passwordAction, submitAction, open, handleClose, onClose }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+    if (usernameAction) usernameAction(event);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    if (passwordAction) passwordAction(event);
+  };
+
+  const handleSubmit = () => {
+    if (submitAction) submitAction();
+  };
+
+  return (
+    <div>
+      <Root elevation={1}>
+        <Header variant="h5" component="h3">
+          Log In
+        </Header>
+        <Typography variant="h6" align="center">
+          {message}
+        </Typography>
+        <CustomTextField
+          id="username"
+          label="Username (required)"
+          margin="normal"
+          fullWidth
+          value={username}
+          onChange={handleUsernameChange}
+        />
+        <Tooltip title="Case Sensitive">
           <CustomTextField
-            id="username"
-            label="Username (required)"
+            id="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
             margin="normal"
             fullWidth
-            onChange={this.props.usernameAction}
+            value={password}
+            onChange={handlePasswordChange}
           />
-          <Tooltip title="Case Sensitive">
-            <CustomTextField
-              id="password"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              fullWidth
-              onChange={this.props.passwordAction}
-            />
-          </Tooltip>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={3}>
-              <StyledButton
-                size="large"
-                variant="contained"
-                color="primary"
-                onClick={this.props.submitAction}
-              >
-                Submit
-              </StyledButton>
-            </Grid>
-            <Grid item xs={12} sm={3}>
-              <StyledButton size="small" variant="contained" href="/signup">
-                New User
-              </StyledButton>
-            </Grid>
+        </Tooltip>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={3}>
+            <StyledButton
+              size="large"
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit}
+            >
+              Submit
+            </StyledButton>
           </Grid>
-        </Root>
+          <Grid item xs={12} sm={3}>
+            <StyledButton size="small" variant="contained" href="/signup">
+              New User
+            </StyledButton>
+          </Grid>
+        </Grid>
+      </Root>
 
-        <StyledDialog
-          open={this.props.open}
-          onClose={this.props.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {'Incorrect Username or Password'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Please try again
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.props.onClose} color="primary" autoFocus>
-              Close
-            </Button>
-          </DialogActions>
-        </StyledDialog>
-      </div>
-    );
-  }
-}
+      <StyledDialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Incorrect Username or Password'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Please try again
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose} color="primary" autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </StyledDialog>
+    </div>
+  );
+};
 
 Login.propTypes = {
-  classes: PropTypes.object.isRequired
+  message: PropTypes.string,
+  usernameAction: PropTypes.func,
+  passwordAction: PropTypes.func,
+  submitAction: PropTypes.func,
+  open: PropTypes.bool,
+  handleClose: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default Login;
