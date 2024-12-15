@@ -1,16 +1,18 @@
 /* eslint-disable react/prop-types */
 import { Bar } from 'react-chartjs-2';
-import { Chart } from 'chart.js';
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'; 
 import styled from 'styled-components';
 
-Chart.defaults.set({
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+
+ChartJS.defaults.set({
   plugins: {
     legend: {
       display: false
     }
   }
 });
-
 
 const ChartContainer = styled.div`
   height: 100%;
@@ -44,11 +46,11 @@ const Charts = ({ dates, quantities }) => {
       display: false,
     },
     scales: {
-      yAxes: [{
+      y: { 
         ticks: {
           beginAtZero: true,
         },
-      }],
+      },
     },
   };
 

@@ -1,25 +1,22 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const bcrypt = require('bcryptjs'); 
 const User = require('../models/User.js'); 
+const user=require('../controllers/index.js');
 dotenv.config();
 
 const router = express.Router();
 
 
+
+
 router.post('/register', async (req, res) => {
-  console.log('Register route reached');
-
-  const { username, password, firstName, lastName, weight } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).json({
-      success: false,
-      msg: 'Please pass username and password.'
-    });
-  }
+  const userdetails = req.body;
+  const { firstName, lastName, username, weight, password } = userdetails;
 
   try {
+  
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({
@@ -28,21 +25,24 @@ router.post('/register', async (req, res) => {
       });
     }
 
-
+    
+    const hashedPassword = await bcrypt.hash(password, 10);  
+   
     const newUser = new User({
       username,
-      password,
+      password: hashedPassword,  
       firstName,
       lastName,
       weight,
     });
 
+    
     await newUser.save();
-    res.status(201).json({
+
+    return res.status(201).json({
       success: true,
       msg: 'Successfully created new user.'
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({
@@ -57,42 +57,45 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
+   
     const user = await User.findOne({ username });
+
     if (!user) {
       return res.status(401).send({
         success: false,
-        msg: 'Authentication failed. User not found.'
+        msg: 'Authentication failed. User not found.',
       });
     }
 
-
-    user.comparePassword(password, (err, isMatch) => {
+    
+    bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err || !isMatch) {
         return res.status(401).send({
           success: false,
-          msg: 'Authentication failed. Wrong password.'
+          msg: 'Authentication failed. Wrong password.',
         });
       }
 
-     
-      const token = jwt.sign(user.toJSON(), process.env.SECRET_KEY, {
-        expiresIn: '1h'
+      
+      const token = jwt.sign({ id: user._id, username: user.username }, process.env.SECRET_KEY, {
+        expiresIn: '1h',
       });
 
+      
       res.json({
         success: true,
         token: token,
-        userId: user._id
+        userId: user._id,
       });
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).send({
       success: false,
-      msg: 'An error occurred. Please try again.'
+      msg: 'An error occurred. Please try again.',
     });
   }
 });
+
 
 module.exports = router;

@@ -6,8 +6,7 @@ app.use(express.json());
 require('dotenv').config();
 const authRoute=require('./routes/auth');
 const healthRoute=require('./routes/healthTracker');
-app.use('/auth',authRoute);
-app.use('/health',healthRoute);
+
 app.use(cors({
   origin: 'http://localhost:5173',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -18,6 +17,8 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
   next();
 })
+app.use('/auth',authRoute);
+app.use('/health',healthRoute);
 mongoose.connect(
     process.env.MONGO_URL 
   );

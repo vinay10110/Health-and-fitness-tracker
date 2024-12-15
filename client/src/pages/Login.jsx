@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import axios from 'axios';
-import LoginComponent from '../components/Login';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';  
+import LoginComponent from '../components/Login';  
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();  
 
+ 
   const onChange = (e) => {
     const { id, value } = e.target;
     setCredentials((prevCredentials) => ({
@@ -16,29 +16,50 @@ const Login = () => {
     }));
   };
 
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  
   const handleClose = () => {
     setOpen(false);
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
+  
+  const onSubmit = async () => {
     const { username, password } = credentials;
     const userDetails = { username, password };
 
     try {
-      const result = await axios.post('/auth/login', userDetails);
-      localStorage.setItem('jwtToken', result.data.token);
-      localStorage.setItem('userId', result.data.userId);
-      navigate('/');  // Use navigate() instead of history.push()
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userDetails),
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          handleClickOpen();  
+        } else {
+          throw new Error('Login failed');
+        }
+      }
+
+      const data = await response.json();
+
+      
+      localStorage.setItem('jwtToken', data.token);
+      localStorage.setItem('userId', data.userId);
+
+     
+      navigate('/'); 
     } catch (error) {
       console.error('Login Error:', error);
-      if (error.response && error.response.status === 401) {
-        handleClickOpen();
+      if (error.message === 'Login failed') {
+        handleClickOpen();  
       }
     }
   };
@@ -46,11 +67,12 @@ const Login = () => {
   return (
     <div>
       <LoginComponent
+        message="Please enter your credentials"
         usernameAction={onChange}
         passwordAction={onChange}
         submitAction={onSubmit}
         open={open}
-        onClose={handleClose}
+        handleClose={handleClose}
       />
     </div>
   );

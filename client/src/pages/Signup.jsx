@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  
 import SignupComponent from '../components/SIgnup';
 
-const Signup = ({ history }) => {
+const Signup = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -12,8 +12,9 @@ const Signup = ({ history }) => {
     password: '',
     passwordConfirmation: '',
   });
-  const [message, setMessage] = useState('');
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +32,7 @@ const Signup = ({ history }) => {
     setOpen(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (formData) => {
     if (formData.password === formData.passwordConfirmation) {
       const userDetails = {
         firstName: formData.firstName,
@@ -49,7 +50,6 @@ const Signup = ({ history }) => {
           },
           body: JSON.stringify(userDetails),
         });
-
         if (!response.ok) {
           throw new Error('Failed to register. Please check your input or try again later.');
         }
@@ -57,14 +57,12 @@ const Signup = ({ history }) => {
         const data = await response.json();
         console.log('Registration successful:', data);
 
-        history.push('/login');
+        navigate('/login'); 
       } catch (error) {
         console.error('Error during signup:', error);
-        setMessage('Signup failed. Please try again.');
         handleClickOpen();
       }
     } else {
-      setMessage('Passwords do not match. Please try again.');
       handleClickOpen();
     }
   };
@@ -75,7 +73,6 @@ const Signup = ({ history }) => {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         open={open}
-        message={message}
       />
     </div>
   );

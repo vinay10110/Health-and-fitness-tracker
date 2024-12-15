@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -25,8 +25,6 @@ const Header = styled(Typography)`
   text-align: center;
 `;
 
-
-
 const CustomTextField = styled(TextField)`
   margin-bottom: 16px;
   width: 100%;
@@ -42,22 +40,29 @@ const StyledDialog = styled(Dialog)`
   }
 `;
 
-const Login = ({ message, usernameAction, passwordAction, submitAction, open, handleClose, onClose }) => {
+const Login = ({
+  message,
+  usernameAction,
+  passwordAction,
+  submitAction,
+  open,
+  handleClose,
+}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    if (usernameAction) usernameAction(event);
+    if (usernameAction) usernameAction(event);  // Calling the parent onChange
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    if (passwordAction) passwordAction(event);
+    if (passwordAction) passwordAction(event);  // Calling the parent onChange
   };
 
   const handleSubmit = () => {
-    if (submitAction) submitAction();
+    if (submitAction) submitAction();  // Calling the parent submit function
   };
 
   return (
@@ -95,7 +100,7 @@ const Login = ({ message, usernameAction, passwordAction, submitAction, open, ha
               size="large"
               variant="contained"
               color="primary"
-              onClick={handleSubmit}
+              onClick={handleSubmit}  // Call handleSubmit when clicked
             >
               Submit
             </StyledButton>
@@ -119,11 +124,11 @@ const Login = ({ message, usernameAction, passwordAction, submitAction, open, ha
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Please try again
+            Please try again.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary" autoFocus>
+          <Button onClick={handleClose} color="primary" autoFocus>
             Close
           </Button>
         </DialogActions>
@@ -139,7 +144,6 @@ Login.propTypes = {
   submitAction: PropTypes.func,
   open: PropTypes.bool,
   handleClose: PropTypes.func,
-  onClose: PropTypes.func,
 };
 
 export default Login;

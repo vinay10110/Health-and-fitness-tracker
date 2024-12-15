@@ -23,7 +23,7 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const url = `/api/health/user/${userId}`;
+        const url = `${import.meta.env.VITE_API_URL}/health/user/${userId}`;
         const token = localStorage.getItem('jwtToken');
         
         const res = await fetch(url, {
