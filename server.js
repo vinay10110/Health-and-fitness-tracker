@@ -22,7 +22,6 @@ app.use('/health',healthRoute);
 mongoose.connect(
     process.env.MONGO_URL 
   );
-  
 const PORT = 4000; 
 app.listen(PORT, () => {
   console.log(`Express server running at http://localhost:${PORT}`);

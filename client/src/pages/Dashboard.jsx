@@ -29,17 +29,15 @@ const DashBoard = () => {
         const res = await fetch(url, {
           method: 'GET',
           headers: {
-            'Authorization': token ? `Bearer ${token}` : '',
+            'Authorization': token,
             'Content-Type': 'application/json',
           },
         });
-
         if (!res.ok) {
           throw new Error('Failed to fetch user data');
         }
 
-        const user = await res.json();
-        
+        const user = await res.json();  
         let mostRecentDate = user.days?.length
           ? moment(user.days[0].date).format('MM.DD.YYYY')
           : moment().add(-1, 'days').format('MM.DD.YYYY');
@@ -56,10 +54,10 @@ const DashBoard = () => {
           setFirstName(user.firstName);
           setLastName(user.lastName);
           setCurrentWeight(user.weight || 0);
-          const newDayResponse = await fetch(`${import.meta.env.VITE_API_URL}/healthtracker/newDay`, {
+          const newDayResponse = await fetch(`${import.meta.env.VITE_API_URL}/health/newDay`, {
             method: 'POST',
             headers: {
-              'Authorization': token ? `Bearer ${token}` : '',
+              'Authorization': token,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -74,6 +72,7 @@ const DashBoard = () => {
           }
 
           const newDayData = await newDayResponse.json();
+          
           setCurrentDayId(newDayData._id);
         }
       } catch (error) {

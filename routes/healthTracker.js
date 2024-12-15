@@ -1,149 +1,116 @@
 const router = require('express').Router();
 const db = require('../controllers/index');
-const Authenticate=require('../config/Authenticate')
+const { verifyToken } = require('../config/Authenticate'); 
 
-
-router.post('/newUser', (req, res) => {
+router.post('/newUser', async (req, res) => {
     const token = req.headers.authorization;
-    if (token) {
-      console.log('user is loggd in to the post route newUser');
-      db.User.createUser(req, res);
-    } else {
-      return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+
+    try {
+        await verifyToken(token); 
+        db.User.createUser(req, res); 
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
     }
-  }
-);
+});
 
-router.post('/newDay', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-    if (token) {
-      console.log('user is loggd in to the post route for newDay');
-      db.Day.createDay(req, res);
-    } else {
-      return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+router.post('/newDay', async (req, res) => {
+    const token = req.headers.authorization;
+
+    try {
+        await verifyToken(token);
+        await db.Day.createDay(req, res); 
+    } catch (err) {
+        return res.status(err.status || 500).json({ success: false, message: err.message });
     }
-  }
-);
+});
 
+router.post('/newExercise', async (req, res) => {
+    const token = req.headers.authorization;
 
-router.post('/newExercise', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('user is loggd in to the post route for NewExercise');
-    db.Exercise.addExercise(req, res);
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+    try {
+        await verifyToken(token);
+        db.Exercise.addExercise(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
+router.get('/user/:id', async (req, res) => {
+    const token = req.headers.authorization;
 
-router.get('/user/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('user is loggd in to the get route user:id');
-    db.User.findUserById(req, res);
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+    try {
+        await verifyToken(token);
+        const userModel= await db.User.findUserById(req, res);
+        return res.json(userModel)
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
+router.get('/day/:id', async (req, res) => {
+    const token = req.headers.authorization;
 
-router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('user is loggd in to the get route for day:id');
-    db.Day.addWater(req, res)
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+    try {
+        await verifyToken(token);
+        db.Day.addWater(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
-  
-router.get('/day/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('user is loggd in to the get route for day:id');
-    db.Day.updateNutrition(req, res)
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+router.post('/newWater', async (req, res) => {
+    const token = req.headers.authorization;
 
+    try {
+        await verifyToken(token);
+        db.Day.addWater(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
-router.post('/newWater', passport.authenticate('jwt', { session: false}), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('Water is being added');
-    db.Day.addWater(req, res);
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-)
-;
+router.post('/updateNutrition', async (req, res) => {
+    const token = req.headers.authorization;
 
-router.post('/updateNutrition', passport.authenticate('jwt', { session: false}), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('Nutrition is being added');
-    db.Day.updateNutrition(req, res);
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+    try {
+        await verifyToken(token);
+        db.Day.updateNutrition(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
+router.post('/updateWeight', async (req, res) => {
+    const token = req.headers.authorization;
 
-router.post('/updateWeight', passport.authenticate('jwt', { session: false}), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log("Weight is being updated");
-    db.Day.updateWeight(req, res)
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+    try {
+        await verifyToken(token);
+        db.Day.updateWeight(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
+router.get('/getDays/:userId', async (req, res) => {
+    const token = req.headers.authorization;
 
+    try {
+        await verifyToken(token);
+        db.Day.findDayByuserId(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
-router.get('/getDays/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('user is loggd in to the get route for day:id');
-    db.Day.findDayByuserId(req,res)
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
+router.get('/getDaysWeight/:userId', async (req, res) => {
+    const token = req.headers.authorization;
 
+    try {
+        await verifyToken(token);
+        db.Day.findDayWeightByuserId(req, res);
+    } catch (err) {
+        return res.status(err.status).json({ success: false, message: err.message });
+    }
+});
 
-router.get('/getDaysWeight/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const token = req.headers.authorization;
-  if (token) {
-    console.log('user is loggd in to the get route for day:id');
-    db.Day.findDayWeightByuserId(req,res)
-  } else {
-    return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-  }
- }
-);
-
-getToken = function(headers) {	
-  if (headers && headers.authorization) {	
-    let parted = headers.authorization.split(' ');	
-    if (parted.length === 2) {	
-      return parted[1];	
-    } else {	
-      return null;	
-    }	
-  } else {
-    return null;	   
-  }	   
-};
 module.exports = router;

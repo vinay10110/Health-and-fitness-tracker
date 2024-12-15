@@ -1,25 +1,33 @@
 const Day=require('../models/Day');
 const User=require('../models/User');
-module.exports = {
+module.exports = {  
+    createDay: async function(req, res) {
+        try {
+            
+            const dbDay = await Day.findOne({ date: req.body.date, userId: req.body.userId, weight: req.body.weight });
 
-  
-    createDay: function(req, res) {
-        Day.findOne({date: req.body.date, userId: req.body.userId, weight: req.body.weight})
-        .then(dbDay => {
             if (dbDay) {
-                return res.json(dbDay)
-            } else {
-                Day.create(req.body)
-                .then(newDbDay => {
-                    User.findById({_id: req.body.userId})
-                    .then(dbUser => {
-                        dbUser.days.push(newDbDay._id)
-                        dbUser.save()
-                    })
-                    return res.json(newDbDay)
-                })
+              
+                return res.json(dbDay);
             }
-        })
+
+            
+            const newDbDay = await Day.create(req.body);
+
+            
+            const dbUser = await User.findById(req.body.userId);
+
+            if (dbUser) {
+                dbUser.days.push(newDbDay._id);
+                await dbUser.save();
+            }
+
+            
+            return res.json(newDbDay);
+        } catch (err) {
+            
+            return res.status(422).json({ success: false, message: err.message });
+        }
     },
 
     updateWeight: function(req, res) {
@@ -35,6 +43,7 @@ module.exports = {
 
 
     addWater: function(req, res) {
+        console.log(req.body)
         Day
         .findOne({ _id: req.body.id })
         .then(dbModel => {

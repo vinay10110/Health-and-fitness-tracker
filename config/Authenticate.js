@@ -1,18 +1,18 @@
-const jwt = require('jsonwebtoken');  
-const authenticateJWT = (req, res, next) => {
-  const token = req.headers['authorization'];
+const jwt = require('jsonwebtoken');
 
-  if (!token) {
-    return res.status(403).json({ message: 'Access denied, token missing.' });
-  }
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Unauthorized access, invalid token.' });
-    }
-    
-    req.user = decoded;
-    next(); 
-  });
+const verifyToken = (token) => {
+    return new Promise((resolve, reject) => {
+        if (!token) {
+            return reject({ status: 403, message: 'Access denied, token missing.' });
+        }
+
+        jwt.verify(token, process.env.SECRET_KEY, (err) => {
+            if (err) {
+                return reject({ status: 401, message: 'Unauthorized access, invalid token.' });
+            }
+            resolve(); 
+        });
+    });
 };
 
-module.exports = { authenticateJWT };
+module.exports = { verifyToken };

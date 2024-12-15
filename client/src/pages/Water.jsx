@@ -11,16 +11,16 @@ const WaterGoal = () => {
   const [quantities, setQuantities] = useState([]);
   const [dates, setDates] = useState([]);
 
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate(); 
 
-  // Redirect to login if no JWT token
+  
   useEffect(() => {
     if (!localStorage.getItem('jwtToken')) {
-      navigate("/login");  // Redirect to login page
+      navigate("/login");  
     }
   }, [navigate]);
 
-  // Fetch data on component mount
+  
   useEffect(() => {
     const fetchWaterData = async () => {
       try {
@@ -85,7 +85,7 @@ const WaterGoal = () => {
         if (!response.ok) {
           throw new Error('Error updating water');
         }
-        console.log('Water updated successfully');
+        
       })
       .catch(err => console.error('Error updating water:', err));
   };

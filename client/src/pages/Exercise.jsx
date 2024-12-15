@@ -24,7 +24,7 @@ const ExerciseGoal = () => {
     const fetchDays = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        const url = `/api/healthtracker/getDays/${userId}`;
+        const url = `${import.meta.env.VITE_API_URL}/health/getDays/${userId}`;
         const token = localStorage.getItem('jwtToken');
 
         const response = await fetch(url, {
@@ -93,7 +93,7 @@ const ExerciseGoal = () => {
         },
         body: body
       });
-
+    console.log(response);
       if (!response.ok) {
         throw new Error('Error adding exercise');
       }

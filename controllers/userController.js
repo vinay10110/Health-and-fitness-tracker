@@ -3,26 +3,30 @@ const User=require('../models/User');
 
 module.exports = {
    
-    findUserById: function(req, res) {
-        User
-        .findByIdAndUpdate({_id: req.params.id})
-        .select("-__v -password")
-        .populate({
-            path: "days",
-            options: {
-                sort: {
-                    date: -1
-                }
-            },
-            select: "-__v",
-            populate: {
-                path: "exercises",
-                model: "Exercise",
-                select: "-__v"
-            }
-        })
-        .then((userModel) => res.json(userModel))
-        .catch(err => res.status(422).json(err));
+    findUserById: async function(req, res) {
+        try {
+            const userModel = await User
+                .findByIdAndUpdate({ _id: req.params.id })
+                .select("-__v -password")
+                .populate({
+                    path: "days",
+                    options: {
+                        sort: { date: -1 }
+                    },
+                    select: "-__v",
+                    populate: {
+                        path: "exercises",
+                        model: "Exercise",
+                        select: "-__v"
+                    }
+                });
+    
+          
+            return userModel;
+        } catch (err) {
+            
+            throw { status: 422, message: err.message };
+        }
     },
 
     createUser: function(req, res) {
