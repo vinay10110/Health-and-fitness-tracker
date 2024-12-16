@@ -11,7 +11,6 @@ A modern, responsive healthcare and fitness tracking website built for individua
 - [Installation](#installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Contributors](#contributors)
 - [Contact](#contact)
 
 ---
@@ -48,15 +47,23 @@ To run this website locally, make sure you have the following installed:
    ```bash
    git clone https://github.com/vinay10110/Health-and-fitness-tracker
 
+2. **Install dependencies:**
+   ```bash
+   npm i
+
+3. **Run application:**
+   ```bash
+   npm run dev
+
 
 ## Screenshots
 ![Screenshot 1](https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
+![Screenshot 2](https://drive.google.com/file/d/155agkPzf7CEX_38HtC6uQdB84NAU5Qoc/view)
+
+![Screenshot 3](https://drive.google.com/file/d/1hKg_y2ToLIP9He3BwaluEQkwBAh-WmGp/view?usp=sharing)
 
 
-(https://drive.google.com/file/d/155agkPzf7CEX_38HtC6uQdB84NAU5Qoc/view)
-
-(https://drive.google.com/file/d/1hKg_y2ToLIP9He3BwaluEQkwBAh-WmGp/view?usp=sharing)
 ---
 
 
