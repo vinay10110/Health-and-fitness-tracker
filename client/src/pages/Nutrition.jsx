@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import NutritionGoalCard from '../components/Nutrition';
-import { useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 const NutritionGoal = () => {
@@ -25,15 +24,17 @@ const NutritionGoal = () => {
     noAlcohol: false
   });
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedDate = localStorage.getItem('date');
     if (moment().format('MM/DD/YYYY') !== savedDate) {
-      localStorage.setItem('toggled', JSON.stringify(toggled));
+      // Update localStorage with the toggled state for the current user
+      localStorage.setItem(`toggled_${userId}`, JSON.stringify(toggled));
     }
 
-    const storedToggled = localStorage.getItem('toggled');
+    // Retrieve the toggled state for the current user from localStorage
+    const storedToggled = localStorage.getItem(`toggled_${userId}`);
     const initialToggled = storedToggled ? JSON.parse(storedToggled) : toggled;
 
     setToggled(initialToggled);
@@ -47,8 +48,6 @@ const NutritionGoal = () => {
     const fetchData = async () => {
       try {
         const url = `${import.meta.env.VITE_API_URL}/health/getDays/${userId}`;
-        const token = localStorage.getItem('jwtToken');
-
         const response = await fetch(url, {
           method: 'GET',
           headers: {
@@ -62,9 +61,8 @@ const NutritionGoal = () => {
         }
 
         const data = await response.json();
-
-        const nutritionQuantities = data.map(day => day.nutrition).reverse();
-        const datesArr = data.map(day => moment(day.date).format('MM/DD/YYYY')).reverse();
+        const nutritionQuantities = data.map((day) => day.nutrition).reverse();
+        const datesArr = data.map((day) => moment(day.date).format('MM/DD/YYYY')).reverse();
 
         setUpdatedNutrition(data[0]?.nutrition || 0);
         setCurrentDayId(data[0]?._id || '');
@@ -81,11 +79,10 @@ const NutritionGoal = () => {
   const handleSubmit = async () => {
     try {
       const updatedQuantities = [...quantities];
-      updatedQuantities[updatedQuantities.length - 1] = updatedNutrition; 
+      updatedQuantities[updatedQuantities.length - 1] = updatedNutrition;
       setQuantities(updatedQuantities);
 
       const url = `${import.meta.env.VITE_API_URL}/health/updateNutrition`;
-      const token = localStorage.getItem('jwtToken');
       const body = JSON.stringify({
         nutrition: progress,
         id: currentDayId
@@ -103,8 +100,6 @@ const NutritionGoal = () => {
       if (!response.ok) {
         throw new Error('Error updating nutrition');
       }
-
-      
     } catch (err) {
       console.error('Error updating nutrition:', err);
     }
@@ -112,27 +107,28 @@ const NutritionGoal = () => {
 
   const handleChange = (name) => (event) => {
     const { checked } = event.target;
-    
-    setToggled(prevState => {
+
+    setToggled((prevState) => {
       const newState = { ...prevState, [name]: checked };
-  
+
       const newProgress = Object.keys(newState).reduce(
         (count, key) => (newState[key] ? count + 1 : count),
         0
-      ); 
+      );
       setProgress(newProgress);
-      setUpdatedNutrition(newProgress); 
-  
-      localStorage.setItem('toggled', JSON.stringify(newState));
+      setUpdatedNutrition(newProgress);
+
+      // Store the toggled state for the current user in localStorage
+      localStorage.setItem(`toggled_${userId}`, JSON.stringify(newState));
       localStorage.setItem('date', moment().format('MM/DD/YYYY'));
-  
+
       return newState;
     });
   };
 
   useEffect(() => {
     if (!token) {
-      navigate("/login");  
+      navigate("/login");
     }
   }, [token, navigate]);
 
