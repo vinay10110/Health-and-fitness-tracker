@@ -11,8 +11,12 @@ app.use(cors({
   origin: `${process.env.HOST_ADDRESS}`,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With'],
-  credentials: true
+  credentials:true
 }));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', `${process.env.HOST_ADDRESS}`);
+  next();
+});
 
 
 const authRoute = require('./routes/auth');
