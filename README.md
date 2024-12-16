@@ -1,6 +1,6 @@
 ![Build-A-Site](https://i.imgur.com/nZPQ9If.png)
 
-# Website Name (Team Name)
+# Healthcare & Fitness Tracker (vinaychakravarthi10110)
 
 A brief description of your website goes here. For example:
 
@@ -28,12 +28,12 @@ A brief description of your website goes here. For example:
 
 ## Technologies Used
 
-- **Frontend**: [HTML, CSS, JavaScript, React, Vue.js, Angular, or other frameworks]
-- **Backend**: [Node.js, Django, Flask, Ruby on Rails, ASP.NET, or others]
-- **Database**: [MongoDB, MySQL, PostgreSQL, Firebase, or others]
-- **Styling**: [Tailwind CSS, Bootstrap, SCSS, Material UI, or others]
-- **APIs**: [REST, GraphQL, or custom APIs]
-- **Hosting**: [Vercel, Netlify, Heroku, AWS, Azure, or other platforms]
+- **Frontend**: [React]
+- **Backend**: [Node.js, Express]
+- **Database**: [MongoDB]
+- **Styling**: [Material UI]
+- **APIs**: [REST]
+- **Hosting**: [Vercel]
 
 ---
 
@@ -43,7 +43,7 @@ A brief description of your website goes here. For example:
 [Add the prerequisites to run the website here]
 
 ### Steps to run the project
-[Add the instructions to run the website here]
+npm start
 
 ## Usage
 
@@ -79,6 +79,6 @@ Feel free to add your name if you contribute to this project during the Build-A-
 For any inquiries or feedback, reach out to:
 
 - **Your Name**
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **GitHub**: [github.com/your-username](https://github.com/your-username)
+- **Email**: [vinaychakravarthi10110@gmail.com](mailto:vinaychakravarthi10110@gmail.com)
+- **GitHub**: [github.com/vinay10110](https://github.com/vinay10110)
 - **Website**: [your-website.com](https://your-website.com)
