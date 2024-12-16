@@ -1,4 +1,3 @@
-![Build-A-Site](https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
 # Healthcare & Fitness Tracker (vinaychakravarthi10110)
 
@@ -43,42 +42,25 @@ A brief description of your website goes here. For example:
 [Add the prerequisites to run the website here]
 
 ### Steps to run the project
-npm start
+npm run dev
 
-## Usage
-
-1. Describe how to use your website, e.g., "Navigate to the home page, log in, and explore various features like [feature examples]."
-2. Provide any credentials if applicable for testing (e.g., demo accounts).
-
----
 
 ## Screenshots
 
-![Screenshot 1](./client/src/assets/Screenshot 2024-12-16 171851.png)
-*Caption for the screenshot.*
+(https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
-![Screenshot 2](path/to/screenshot2.png)
-*Caption for the screenshot.*
 
+(https://drive.google.com/file/d/155agkPzf7CEX_38HtC6uQdB84NAU5Qoc/view)
+
+(https://drive.google.com/file/d/1hKg_y2ToLIP9He3BwaluEQkwBAh-WmGp/view?usp=sharing)
 ---
 
-## Contributors
-
-We thank the following people for their contributions to this project:
-
-- **[Name 1]** - [GitHub Profile](https://github.com/name1)
-- **[Name 2]** - [GitHub Profile](https://github.com/name2)
-- **[Name 3]** - [GitHub Profile](https://github.com/name3)
-
-Feel free to add your name if you contribute to this project during the Build-A-Site hackathon!
-
----
 
 ## Contact
 
 For any inquiries or feedback, reach out to:
 
-- **Your Name**
+- **Sai Vinay Chakravarthi**
 - **Email**: [vinaychakravarthi10110@gmail.com](mailto:vinaychakravarthi10110@gmail.com)
 - **GitHub**: [github.com/vinay10110](https://github.com/vinay10110)
 - **Website**: [your-website.com](https://your-website.com)
