@@ -41,7 +41,7 @@ const Navbar = ({ classes }) => {
   const sideList = (
     <div className={classes.list}>
       <div>
-        <ListItem component={Link} to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem component={Link} to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
@@ -89,7 +89,7 @@ const Navbar = ({ classes }) => {
           </Drawer>
 
           <Typography variant="h6" color="inherit" className={classes.flex}>
-            <a style={{ textDecoration: 'none', color: 'white' }} href="/">
+            <a style={{ textDecoration: 'none', color: 'white' }} href="/dashboard">
               HealthTracker
             </a>
           </Typography>

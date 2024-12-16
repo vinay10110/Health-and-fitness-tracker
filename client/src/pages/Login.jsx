@@ -55,7 +55,7 @@ const Login = () => {
       localStorage.setItem('userId', data.userId);
 
      if(response.ok){
-      navigate('/'); 
+      navigate('/dashboard'); 
      }
      
     } catch (error) {
