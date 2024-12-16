@@ -53,9 +53,7 @@ const Signup = () => {
         if (!response.ok) {
           throw new Error('Failed to register. Please check your input or try again later.');
         }
-
-        const data = await response.json();
-        navigate('/login'); 
+        navigate('/'); 
       } catch (error) {
         console.error('Error during signup:', error);
         handleClickOpen();
