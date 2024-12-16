@@ -54,7 +54,7 @@ npm start
 
 ## Screenshots
 
-![Screenshot 1](path/to/screenshot1.png)
+![Screenshot 1](client/src/assets/Screenshot 2024-12-16 171851.png)
 *Caption for the screenshot.*
 
 ![Screenshot 2](path/to/screenshot2.png)

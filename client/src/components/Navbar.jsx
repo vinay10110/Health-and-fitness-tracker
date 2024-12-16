@@ -34,8 +34,8 @@ const Navbar = ({ classes }) => {
   const logout = () => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('userId');
-    window.location.reload();
     navigate('/')
+    
   };
 
   const sideList = (
