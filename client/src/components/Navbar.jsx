@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';  
 import { withStyles } from '@mui/styles';
 import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const styles = {
   root: {
     flexGrow: 1
@@ -23,6 +24,7 @@ const styles = {
 };
 
 const Navbar = ({ classes }) => {
+  const navigate=useNavigate();
   const [left, setLeft] = useState(false);
 
   const toggleDrawer = (open) => {
@@ -33,6 +35,7 @@ const Navbar = ({ classes }) => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('userId');
     window.location.reload();
+    navigate('/login')
   };
 
   const sideList = (

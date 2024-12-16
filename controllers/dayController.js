@@ -46,7 +46,6 @@ module.exports = {
     },
 
     addWater: function(req, res) {
-        console.log(req.body)
         Day
         .findOne({ _id: req.body.id })
         .then(dbModel => {
