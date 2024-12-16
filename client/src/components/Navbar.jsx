@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, Toolbar, Button, IconButton, Drawer, ListItem, Divider, ListItemIcon, ListItemText } from '@mui/material'; 
@@ -118,4 +117,5 @@ Navbar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Navbar);
+const StyledNavbar = withStyles(styles)(Navbar);
+export default StyledNavbar;
