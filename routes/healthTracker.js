@@ -74,7 +74,8 @@ router.post('/updateNutrition', async (req, res) => {
 
     try {
         await verifyToken(token);
-        await db.Day.updateNutrition(req, res);
+         const doc=db.Day.updateNutrition(req, res);
+         
     } catch (err) {
         return res.status(err.status).json({ success: false, message: err.message });
     }

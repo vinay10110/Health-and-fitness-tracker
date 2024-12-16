@@ -18,7 +18,7 @@ import TableRow from '@mui/material/TableRow';
 import styled from 'styled-components';
 import ChartsBar from './ChartsBar';
 
-// Styled Components
+
 const Root = styled(Paper)`
   padding-top: 16px;
   padding-bottom: 16px;
@@ -68,8 +68,8 @@ const ExerciseGoalCard = ({
 }) => {
 
   const renderTableRows = (arr) => (
-    arr.map((element) => (
-      <TableRow key={element.exercise}>
+    arr.map((element, index) => (
+      <TableRow key={`${element.exercise}-${index}`}>
         <TableCell>{element.exercise}</TableCell>
         <TableCell>{element.duration} Minutes</TableCell>
       </TableRow>
@@ -148,7 +148,7 @@ const ExerciseGoalCard = ({
     </Root>
   </Grid>
 
-  {/* Now, the Today table and the History chart are stacked vertically in the same column */}
+ 
   <Grid item xs={12} md={6}>
     <Root elevation={1}>
       <Typography variant="h5" align="center">

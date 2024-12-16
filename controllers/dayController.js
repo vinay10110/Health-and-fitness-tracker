@@ -13,7 +13,6 @@ module.exports = {
 
             
             const newDbDay = await Day.create(req.body);
-             console.log(newDbDay);
             
             const dbUser = await User.findById(req.body.userId);
 
@@ -65,11 +64,10 @@ module.exports = {
         .then(dbDay => {
             dbDay.nutrition = req.body.nutrition
             dbDay.save()
-            return res.json(db.Day)
+            return res.json(dbDay.Day)
         })
-        .catch(err => res.status(422).json(err));
+        .catch(err => console.log(err));
     },
-
     findDayByuserId: function(req, res) {
         Day
         .find({userId: req.params.userId}, null, {sort: {date: -1}, limit: 7} )

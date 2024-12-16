@@ -66,15 +66,20 @@ const ExerciseGoal = () => {
   };
 
   const addExercise = async () => {
+    
     const updatedActivities = [
       ...todaysActivity,
       { exercise: newExercise, duration: newDuration }
     ];
     const updatedDailyTotal = dailyTotal + newDuration;
-
+  
     setTodaysActivity(updatedActivities);
     setDailyTotal(updatedDailyTotal);
-
+  
+    
+    const updatedQuantities = [...quantities, updatedDailyTotal]; 
+    setQuantities(updatedQuantities); 
+  
     try {
       const token = localStorage.getItem('jwtToken');
       const url = `${import.meta.env.VITE_API_URL}/health/newExercise`;
@@ -84,7 +89,7 @@ const ExerciseGoal = () => {
         totalActivity: updatedDailyTotal,
         currentDayId: currentDayId
       });
-
+  
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -93,14 +98,15 @@ const ExerciseGoal = () => {
         },
         body: body
       });
+  
       if (!response.ok) {
         throw new Error('Error adding exercise');
       }
-
+  
     } catch (err) {
       console.error('Error adding exercise:', err);
     }
-  };
+  }
 
   return (
     <div>

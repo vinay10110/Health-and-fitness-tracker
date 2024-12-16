@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import NutritionGoalCard from '../components/Nutrition';
 import { useNavigate } from 'react-router-dom';  
 import moment from 'moment';
@@ -29,7 +28,6 @@ const NutritionGoal = () => {
   const navigate = useNavigate();  
 
   useEffect(() => {
-    
     const savedDate = localStorage.getItem('date');
     if (moment().format('MM/DD/YYYY') !== savedDate) {
       localStorage.setItem('toggled', JSON.stringify(toggled));
@@ -46,7 +44,6 @@ const NutritionGoal = () => {
       )
     );
 
-    
     const fetchData = async () => {
       try {
         const url = `${import.meta.env.VITE_API_URL}/health/getDays/${userId}`;
@@ -81,20 +78,10 @@ const NutritionGoal = () => {
     fetchData();
   }, [token, userId]);
 
-  const handleCheckboxChange = (e) => {
-    const { value } = e.target;
-    setToggled(prevState => {
-      const newState = { ...prevState, [value]: !prevState[value] };
-      localStorage.setItem('toggled', JSON.stringify(newState));
-      localStorage.setItem('date', moment().format('MM/DD/YYYY'));
-      setProgress(Object.keys(newState).reduce((count, key) => (newState[key] ? count + 1 : count), 0));
-      return newState;
-    });
-  };
-
   const handleSubmit = async () => {
     try {
-      const updatedQuantities = [...quantities.slice(0, -1), updatedNutrition];
+      const updatedQuantities = [...quantities];
+      updatedQuantities[updatedQuantities.length - 1] = updatedNutrition; 
       setQuantities(updatedQuantities);
 
       const url = `${import.meta.env.VITE_API_URL}/health/updateNutrition`;
@@ -112,20 +99,35 @@ const NutritionGoal = () => {
         },
         body: body
       });
-console.log(response);
+
       if (!response.ok) {
         throw new Error('Error updating nutrition');
       }
 
-      console.log('Nutrition data updated successfully!');
+      
     } catch (err) {
       console.error('Error updating nutrition:', err);
     }
   };
 
-  const handleChange = (name) => (event, isChecked) => {
-    handleCheckboxChange(event);
-    setToggled(prevState => ({ ...prevState, [name]: event.target.checked }));
+  const handleChange = (name) => (event) => {
+    const { checked } = event.target;
+    
+    setToggled(prevState => {
+      const newState = { ...prevState, [name]: checked };
+  
+      const newProgress = Object.keys(newState).reduce(
+        (count, key) => (newState[key] ? count + 1 : count),
+        0
+      ); 
+      setProgress(newProgress);
+      setUpdatedNutrition(newProgress); 
+  
+      localStorage.setItem('toggled', JSON.stringify(newState));
+      localStorage.setItem('date', moment().format('MM/DD/YYYY'));
+  
+      return newState;
+    });
   };
 
   useEffect(() => {

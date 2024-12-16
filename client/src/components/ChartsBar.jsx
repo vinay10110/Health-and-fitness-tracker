@@ -13,7 +13,6 @@ const ChartContainer = styled.div`
 
 // eslint-disable-next-line react/prop-types
 const Chart = ({ dates, quantities }) => {
-
   const chartData = {
     labels: dates,
     datasets: [{

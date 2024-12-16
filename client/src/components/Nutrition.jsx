@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -26,10 +27,9 @@ const ProgressPaper = styled(Paper)`
   text-align: center;
 `;
 
-const ListItemStyled = styled(ListItem)`
+const ListItemStyled = styled(({ button, ...props }) => <ListItem {...props} />)`
   padding: 8px 0;
 `;
-
 const SubmitButton = styled(Button)`
   margin-top: 16px;
   display: block;
@@ -73,7 +73,7 @@ const NutritionGoalCard = ({ progress, toggled, handleChange, handleSubmit, quan
               <List>
                 {questions.map(([key, text]) => (
                   <Grid item xs={12} key={key}>
-                    <ListItemStyled dense button>
+                    <ListItemStyled component="div" button dense>
                       <Checkbox
                         value={key}
                         checked={toggled[key]}

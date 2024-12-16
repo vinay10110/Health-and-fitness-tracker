@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';  
 import HomeIcon from '@mui/icons-material/Home';  
 import { withStyles } from '@mui/styles';
-
+import {Link} from 'react-router-dom';
 const styles = {
   root: {
     flexGrow: 1
@@ -39,23 +39,23 @@ const Navbar = ({ classes }) => {
   const sideList = (
     <div className={classes.list}>
       <div>
-        <ListItem component="a" href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem component={Link} to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
         </ListItem>
         <Divider />
-        <ListItem component="a" href="/water" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem component={Link} to="/water" className={classes.link} style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemText primary="Water" />
         </ListItem>
-        <ListItem component="a" href="/nutrition" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem component={Link} to="/nutrition" className={classes.link} style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemText primary="Nutrition" />
         </ListItem>
-        <ListItem component="a" href="/exercise" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem component={Link} to="/exercise" className={classes.link} style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemText primary="Exercise" />
         </ListItem>
-        <ListItem component="a" href="/weight" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <ListItem component={Link} to="/weight" className={classes.link} style={{ textDecoration: 'none', color: 'inherit' }}>
           <ListItemText primary="Weight" />
         </ListItem>
    

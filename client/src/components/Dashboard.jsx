@@ -1,17 +1,18 @@
 /* eslint-disable react/prop-types */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTint, faUtensils, faDumbbell, faWeight } from '@fortawesome/free-solid-svg-icons';
-import Grid from '@mui/material/Grid';  
-import Card from '@mui/material/Card';  
-import CardContent from '@mui/material/CardContent';  
-import Typography from '@mui/material/Typography'; 
-import Table from '@mui/material/Table'; 
-import TableBody from '@mui/material/TableBody';  
-import TableCell from '@mui/material/TableCell';  
-import TableRow from '@mui/material/TableRow';  
-import Tooltip from '@mui/material/Tooltip';  
-import Avatar from '@mui/material/Avatar';   
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Tooltip from '@mui/material/Tooltip';
+import Avatar from '@mui/material/Avatar';
 import ChartsPie from './ChartsPie';
+import { Link } from 'react-router-dom'
 const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) => {
   const styles = {
     cardUser: { margin: "5%" },
@@ -54,9 +55,9 @@ const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) 
                     <TableCell>
                       <Tooltip title="Go to Water Page" placement="right">
                         <Avatar style={styles.waterAvatar}>
-                          <a href="/water" style={{ textDecoration: 'none', color: 'white' }}>
-                            <FontAwesomeIcon icon={faTint} size="lg" />
-                          </a>
+                        <Link to="/water" style={{ textDecoration: 'none', color: 'white' }}>
+      <FontAwesomeIcon icon={faTint} size="lg" />
+    </Link>
                         </Avatar>
                       </Tooltip>
                     </TableCell>
@@ -67,9 +68,10 @@ const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) 
                     <TableCell>
                       <Tooltip title="Go to Nutrition Page" placement="right">
                         <Avatar style={styles.nutritionAvatar}>
-                          <a href="/nutrition" style={{ textDecoration: 'none', color: 'white' }}>
+                          <Link to="/nutrition" style={{ textDecoration: 'none', color: 'white' }}>
                             <FontAwesomeIcon icon={faUtensils} size="lg" />
-                          </a>
+                          </Link>
+
                         </Avatar>
                       </Tooltip>
                     </TableCell>
@@ -80,9 +82,10 @@ const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) 
                     <TableCell>
                       <Tooltip title="Go to Exercise Page" placement="right">
                         <Avatar style={styles.exerciseAvatar}>
-                          <a href="/exercise" style={{ textDecoration: 'none', color: 'white' }}>
+                          <Link to="/exercise" style={{ textDecoration: 'none', color: 'white' }}>
                             <FontAwesomeIcon icon={faDumbbell} size="lg" />
-                          </a>
+                          </Link>
+
                         </Avatar>
                       </Tooltip>
                     </TableCell>
@@ -93,9 +96,10 @@ const Dashboard = ({ firstName, lastName, water, nutrition, exercise, weight }) 
                     <TableCell>
                       <Tooltip title="Go to Weight Page" placement="right">
                         <Avatar style={styles.weightAvatar}>
-                          <a href="/weight" style={{ textDecoration: 'none', color: 'white' }}>
+                          <Link to="/weight" style={{ textDecoration: 'none', color: 'white' }}>
                             <FontAwesomeIcon icon={faWeight} size="lg" />
-                          </a>
+                          </Link>
+
                         </Avatar>
                       </Tooltip>
                     </TableCell>

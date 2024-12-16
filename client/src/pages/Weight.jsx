@@ -98,7 +98,7 @@ const WeightGoal = () => {
       <WeightGoalCard
         handleChange={handleChange}
         handleClick={handleClick}
-        weight={weight}
+        weight={Number(weight)}
         updatedWeight={updatedWeight}
         quantities={quantities}
         dates={dates}
