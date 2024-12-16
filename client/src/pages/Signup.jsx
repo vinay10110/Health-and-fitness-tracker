@@ -55,8 +55,6 @@ const Signup = () => {
         }
 
         const data = await response.json();
-        console.log('Registration successful:', data);
-
         navigate('/login'); 
       } catch (error) {
         console.error('Error during signup:', error);

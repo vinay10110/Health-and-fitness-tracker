@@ -12,7 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from 'styled-components';
-
+import {Link} from 'react-router-dom'
 
 const Root = styled(Paper)`
   padding-top: 16px;
@@ -106,8 +106,9 @@ const Login = ({
             </StyledButton>
           </Grid>
           <Grid item xs={12} sm={3}>
-            <StyledButton size="large" variant="contained" href="/signup">
-              New User
+            <StyledButton size="large" variant="contained" >
+              <Link to='/signup' style={{textDecoration:'none'}} > New User</Link>
+             
             </StyledButton>
           </Grid>
         </Grid>
