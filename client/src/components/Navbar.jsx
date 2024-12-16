@@ -35,7 +35,7 @@ const Navbar = ({ classes }) => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('userId');
     window.location.reload();
-    navigate('/login')
+    navigate('/')
   };
 
   const sideList = (
@@ -104,7 +104,7 @@ const Navbar = ({ classes }) => {
           ) : (
             <Button
               style={{ textDecoration: 'none', color: 'white' }}
-              href="/login"
+              href="/"
               color="inherit"
             >
               Login
