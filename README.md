@@ -50,8 +50,8 @@ To run this website locally, make sure you have the following installed:
 
 
 ## Screenshots
+![Screenshot 1](https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
-(https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
 
 (https://drive.google.com/file/d/155agkPzf7CEX_38HtC6uQdB84NAU5Qoc/view)
