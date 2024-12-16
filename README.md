@@ -59,9 +59,9 @@ To run this website locally, make sure you have the following installed:
 ## Screenshots
 ![Screenshot 1](https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
-![Screenshot 2](https://drive.google.com/file/d/155agkPzf7CEX_38HtC6uQdB84NAU5Qoc/view)
+![Screenshot 2](https://drive.usercontent.google.com/download?id=1hKg_y2ToLIP9He3BwaluEQkwBAh-WmGp&export=view&authuser=0)
 
-![Screenshot 3](https://drive.google.com/file/d/1hKg_y2ToLIP9He3BwaluEQkwBAh-WmGp/view?usp=sharing)
+![Screenshot 3](https://drive.google.com/uc?export=view&id=155agkPzf7CEX_38HtC6uQdB84NAU5Qoc)
 
 
 ---
