@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import Navbar from './components/Navbar'
 import DashBoard from './pages/DashBoard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <div>
-        <NavBar />
+        <Navbar />
         <Routes>
           <Route path="/" element={<DashBoard />} />
           <Route path="/login" element={<Login />} />
