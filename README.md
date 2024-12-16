@@ -1,4 +1,4 @@
-![Build-A-Site](https://drive.google.com/file/d/1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I/view?usp=sharing)
+![Build-A-Site](https://drive.usercontent.google.com/download?id=1hCuVMpt5875wH8mUYT_lZXHxD5kmOt-I&export=view&authuser=0)
 
 # Healthcare & Fitness Tracker (vinaychakravarthi10110)
 
